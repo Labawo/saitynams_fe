@@ -14,7 +14,7 @@ html {
 
 body {
     min-height: 100vh;
-    background-color: dodgerblue;
+    background-color: black;
 }
 
 .App {
@@ -28,13 +28,13 @@ body {
 
 section {
     width: 100%;
-    max-width: 420px;
+    max-width: 800px;
     min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: grey;
 }
 
 form {
@@ -112,4 +112,126 @@ button {
 
 .line {
     display: inline-block;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: grey;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; 
+}
+
+.nav-link:hover {
+    background-color: #ddd; /* Change background color on hover */
+}
+
+.nav-link.white-bg {
+    background-color: white; /* Apply white background specifically */
+    color:black;
+}
+
+.hidden {
+    display: none;
+}
+
+.logout-btn {
+    margin-top: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    background-color: #df2323;
+    cursor: pointer;
+}
+
+.list-container {
+    width: 300px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.my-list {
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+}
+
+.my-list li {
+    margin-bottom: 8px; /* Space between list items */
+    padding: 8px 12px; /* Padding for list items */
+    border: 1px solid #ddd; /* Border for list items */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Background color for list items */
+    color: black;
+}
+
+.table-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.my-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color:black;
+}
+
+.my-table th,
+.my-table td:not(:last-child){
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.my-table th {
+    background-color: #f0f0f0;
+}
+
+.my-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.my-table td:last-child {
+    background-color: grey;
+    border: none; /* Optional: Remove border for the last td */
+}
+
+.my-table td:not(:last-child){
+    min-width: 150px; /* Set a minimum width for cells */
+    max-width: 300px; /* Set a maximum width for cells */
+    word-wrap: break-word; /* Wrap long content within cells */
+}
+
+.table_buttons{
+    margin-top: 0;
+    margin-left: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    background-color: #df2323;
+    cursor: pointer;
+}
+
+.table_buttons_blue{
+    margin-top: 0;
+    margin-left: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    background-color: #233cdf;
+    cursor: pointer;
 }

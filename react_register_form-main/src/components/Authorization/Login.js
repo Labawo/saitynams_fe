@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
-import useAuth from '../hooks/UseAuth';
+import useAuth from '../../hooks/UseAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import axios from '../api/axios';
+import axios from '../../api/axios';
 import { jwtDecode } from 'jwt-decode';
 
 const LOGIN_URL = '/login';
@@ -43,11 +43,12 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
+            const refreshToken = response?.data?.refreshToken;
             const decodedToken = jwtDecode(accessToken);
             const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
             console.log(decodedToken);
             console.log(roles);
-            setAuth({ user, pwd, roles, accessToken });
+            setAuth({ user, pwd, roles, accessToken, refreshToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });

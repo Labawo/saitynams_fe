@@ -1,14 +1,12 @@
-import { Link } from "react-router-dom"
+import NavBar from "./NavBar";
 
 const Editor = () => {
     return (
         <section>
+            <NavBar />
             <h1>Editors Page</h1>
             <br />
             <p>You must have been assigned an Editor role.</p>
-            <div className="flexGrow">
-                <Link to="/">Home</Link>
-            </div>
         </section>
     )
 }
