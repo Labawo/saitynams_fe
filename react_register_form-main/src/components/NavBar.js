@@ -27,6 +27,7 @@ const NavBar = () => {
                 <Link to="/therapies" className='nav-link white-bg'>Therapies</Link>
                 <Link to="/editor" className={canAccessDoctor ? 'nav-link white-bg' : 'hidden'}>Editor</Link>
                 <Link to="/admin" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Admin</Link>
+                <Link to="/registerDoctor" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Register Doctor</Link>
                 <Link to="/lounge" className={canAccessAdminDoctor ? 'nav-link white-bg' : 'hidden'}>Lounge</Link>
             </div>
             
