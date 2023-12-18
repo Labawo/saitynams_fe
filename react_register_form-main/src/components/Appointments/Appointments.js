@@ -43,11 +43,28 @@ const Appointments = () => {
         }
     }, [])
 
-    const createAppointment = async () => {
-        // Logic to create a new therapy
-        // This function will be triggered when the "Create Therapy" button is clicked
-        // Implement the logic to create a new therapy using your API
+    const createAppointment = () => {
+        // Navigate to the Create Therapy page
+        navigate(`/therapies/${therapyId}/appointments/createAppointment`);
     };
+
+    const updateAppointment = (apponitmentId) => {
+        // Navigate to the Create Therapy page
+        navigate(`/therapies/${therapyId}/appointments/${apponitmentId}/editAppointment`);
+    };
+
+    const deleteAppointment = async (appointmentId) => {
+        try {
+          await axiosPrivate.delete(`/therapies/${therapyId}/appointments/${appointmentId}`);
+          // Remove the deleted appointment from the state
+          setAppointments(prevAppointments =>
+            prevAppointments.filter(appointment => appointment.id !== appointmentId)
+          );
+        } catch (error) {
+          console.error(`Error deleting appointment ${appointmentId}:`, error);
+          // Handle deletion error (e.g., show error message)
+        }
+      };
 
     return (
         <article>
@@ -78,8 +95,18 @@ const Appointments = () => {
                                         </button>
                                         {canAccessDoctor && (
                                             <>
-                                                <button className="table_buttons_blue">Edit</button>
-                                                <button className="table_buttons">Remove</button>
+                                                <button 
+                                                    className="table_buttons_blue"
+                                                    onClick={() => updateAppointment(appointment.id)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="table_buttons"
+                                                    onClick={() => deleteAppointment(appointment.id)} // Invoke deleteAppointment on click
+                                                >
+                                                    Remove
+                                                </button>
                                             </>
                                         )}
                                     </td>

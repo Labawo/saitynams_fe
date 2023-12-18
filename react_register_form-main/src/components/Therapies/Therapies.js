@@ -17,7 +17,7 @@ const Therapies = () => {
         navigate(`/therapies/${therapyId}`);
     };
 
-    const canAccessDoctor = auth.roles.includes("Doctor") && !auth.roles.includes("Admin");
+    const canAccessDoctor = auth.roles.includes("Doctor") || auth.roles.includes("Admin");
 
     const fetchTherapies = useCallback(async (pageNumber) => {
         try {
@@ -46,11 +46,27 @@ const Therapies = () => {
         loadTherapies();
     }, []); // Load therapies only once on initial mount
 
-    const createTherapy = async () => {
-        // Logic to create a new therapy
-        // This function will be triggered when the "Create Therapy" button is clicked
-        // Implement the logic to create a new therapy using your API
+    const createTherapy = () => {
+        // Navigate to the Create Therapy page
+        navigate(`/therapies/createTherapy`);
     };
+
+    const updateTherapy = (therapyId) => {
+        // Navigate to the Create Therapy page
+        navigate(`/therapies/${therapyId}/editTherapy`);
+    };
+
+    const removeTherapy = async (therapyId) => {
+        try {
+          await axiosPrivate.delete(`/therapies/${therapyId}`);
+          setTherapies(prevTherapies =>
+            prevTherapies.filter(therapy => therapy.id !== therapyId)
+          );
+        } catch (error) {
+          console.error(`Error removing therapy ${therapyId}:`, error);
+          // Handle error as needed
+        }
+      };
 
     return (
         <article>
@@ -81,8 +97,18 @@ const Therapies = () => {
                                         </button>
                                         {canAccessDoctor && (
                                             <>
-                                                <button className="table_buttons_blue">Edit</button>
-                                                <button className="table_buttons">Remove</button>
+                                                <button 
+                                                    className="table_buttons_blue"
+                                                    onClick={() => updateTherapy(therapy.id)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button 
+                                                    className="table_buttons"
+                                                    onClick={() => removeTherapy(therapy.id)} // Call remove function on click
+                                                >
+                                                    Remove
+                                                </button>
                                             </>
                                         )}
                                     </td>

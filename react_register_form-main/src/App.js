@@ -9,6 +9,10 @@ import Missing from './components/Missing';
 import Unauthorized from './components/Authorization/Unauthorized';
 import Lounge from './components/Lounge';
 import TherapiesPage from './components/Therapies/TherapiesPage';
+import CreateTherapyPage from './components/Therapies/CreateTherapy';
+import EditTherapyPage from './components/Therapies/EditTherapy';
+import CreateAppointment from './components/Appointments/CreateAppointment';
+import EditAppointment from './components/Appointments/EditAppointment';
 import AppointmentsPage from './components/Appointments/AppointmentsPage';
 import AppointmentPage from './components/Appointments/AppointmentPage';
 import RecommendationsPage from './components/Recommendations/RecommendationsPage';
@@ -45,6 +49,10 @@ function App() {
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
           <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations" element={<RecommendationsPage />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/:recommendationId" element={<RecommendationPage />} />
+          <Route path="/therapies/createTherapy" element={<CreateTherapyPage />} />
+          <Route path="/therapies/:therapyId/editTherapy" element={<EditTherapyPage />} />
+          <Route path="/therapies/:therapyId/appointments/createAppointment" element={<CreateAppointment />} />
+          <Route path="/therapies/:therapyId/appointments/:appointmentId/editAppointment" element={<EditAppointment />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>

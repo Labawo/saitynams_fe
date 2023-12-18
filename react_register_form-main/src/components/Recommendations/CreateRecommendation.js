@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
+import { useParams } from "react-router-dom";
 import NavBar from "../NavBar";
 
-const EditAppointment = () => {
+const CreateRecommendation = () => {
+
   const { therapyId } = useParams();
-  const { appointmentId } = useParams(); // Get the appointmentId from the URL params
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     date: "",
@@ -16,30 +15,8 @@ const EditAppointment = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
-
-  useEffect(() => {
-    const fetchAppointmentData = async () => {
-      try {
-        const response = await axiosPrivate.get(`/therapies/${therapyId}/appointments/${appointmentId}`);
-        const { time: datetime, price } = response.data;
-        console.log(response.data);
-        const formattedDateTime = new Date(datetime).toISOString().split('T');
-        const date = formattedDateTime[0];
-        const time = formattedDateTime[1].slice(0, 5);
-        setFormData({ date, time, price });
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching appointment:", error);
-        if (error.response && error.response.status === 403) {
-          navigate("/therapies"); // Redirect to unauthorized page
-        }
-      }
-    };
-
-    fetchAppointmentData();
-  }, [axiosPrivate, therapyId, appointmentId, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,29 +29,28 @@ const EditAppointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const datetime = `${formData.date} ${formData.time}:00`;
+      const datetime = `${formData.date}T${formData.time}:00`; // Add ":00" for seconds
+      const combinedDateTime = new Date(datetime).toISOString();
 
       const payload = {
-        time: datetime,
+        datetime: combinedDateTime,
         price: formData.price,
       };
 
-      const response = await axiosPrivate.put(`/therapies/${therapyId}/appointments/${appointmentId}`, payload);
-      setSuccessMessage("Appointment updated successfully!");
+      const response = await axiosPrivate.post(`therapies/${therapyId}/appointments`, payload);
+
+      setSuccessMessage("Recommendation created successfully!");
+      setFormData({ date: "", time: "", price: 0 });
     } catch (error) {
-      console.error("Error updating appointment:", error);
+      console.error("Error creating recommendation:", error);
     }
   };
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <section>
       <NavBar />
       <div className="form-container">
-        <h2>Edit Appointment</h2>
+        <h2>Create New Recommendation</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -88,6 +64,7 @@ const EditAppointment = () => {
               required
               className="input-field"
             />
+            {errors.date && <span className="error-message">{errors.date}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="time">Time:</label>
@@ -99,8 +76,9 @@ const EditAppointment = () => {
               onChange={handleInputChange}
               required
               className="input-field"
-              step="60"
+              step="60" // Set step to 60 (one minute)
             />
+            {errors.time && <span className="error-message">{errors.time}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="price">Price:</label>
@@ -113,9 +91,12 @@ const EditAppointment = () => {
               required
               className="input-field"
             />
+            {errors.price && (
+              <span className="error-message">{errors.price}</span>
+            )}
           </div>
           <button type="submit" className="submit-button">
-            Update
+            Create
           </button>
         </form>
       </div>
@@ -123,4 +104,4 @@ const EditAppointment = () => {
   );
 };
 
-export default EditAppointment;
+export default CreateRecommendation;

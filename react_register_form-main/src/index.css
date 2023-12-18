@@ -235,3 +235,32 @@ button {
     background-color: #233cdf;
     cursor: pointer;
 }
+
+/* Example CSS Styles */
+.form-container {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.input-field,
+.textarea-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+}
+
+.success-message {
+    color: green;
+}
