@@ -18,6 +18,7 @@ const Therapies = () => {
     };
 
     const canAccessDoctor = auth.roles.includes("Doctor") || auth.roles.includes("Admin");
+    const canAccessAdmin = auth.roles.includes("Admin");
 
     const fetchTherapies = useCallback(async (pageNumber) => {
         try {
@@ -37,6 +38,7 @@ const Therapies = () => {
 
         setIsLoading(true);
         const data = await fetchTherapies(page);
+        console.log(data)
         setTherapies(prevTherapies => [...prevTherapies, ...data]);
         setPage(prevPage => prevPage + 1); // Move to the next page for the next load
         setIsLoading(false);
@@ -95,7 +97,7 @@ const Therapies = () => {
                                         >
                                             Inspect
                                         </button>
-                                        {canAccessDoctor && (
+                                        {therapy.doctorId === auth.id || canAccessAdmin && (
                                             <>
                                                 <button 
                                                     className="table_buttons_blue"

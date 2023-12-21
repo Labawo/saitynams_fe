@@ -33,6 +33,19 @@ const Users = () => {
         }
     }, [])
 
+    const deleteUser = async (userId) => {
+        try {
+          await axiosPrivate.delete(`/users/${userId}`);
+          // Remove the deleted appointment from the state
+          setUsers(prevUsers =>
+            prevUsers.filter(user => user.id !== userId)
+          );
+        } catch (error) {
+          console.error(`Error deleting user ${userId}:`, error);
+          // Handle deletion error (e.g., show error message)
+        }
+      };
+
     return (
         <article>
             <div className="table-container">
@@ -51,7 +64,14 @@ const Users = () => {
                                     <tr key={i}>
                                         <td>{user?.userName}</td>
                                         <td>{user?.email}</td>
-                                        <td><button className="table_buttons">Remove</button></td>
+                                        <td>
+                                            <button
+                                                className="table_buttons"
+                                                onClick={() => deleteUser(user.id)} // Invoke deleteAppointment on click
+                                            >
+                                                Remove
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

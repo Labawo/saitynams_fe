@@ -11,7 +11,7 @@ const RecommendationPage = () => {
     useEffect(() => {
         const fetchTherapy = async () => {
             try {
-                const response = await axiosPrivate.get(`/therapies/${therapyId}/appointments/${appointmentId}/recomendations/${recommendationId}`);
+                const response = await axiosPrivate.get(`/therapies/${therapyId}/appointments/${appointmentId}/recommendations/${recommendationId}`);
                 setRecommendation(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -26,7 +26,7 @@ const RecommendationPage = () => {
     return (
         <section>
             <NavBar />
-            <h2>Therapy Details</h2>
+            <h2>Recommendation Details</h2>
             {recommendation ? (
                 <div>
                     <p>Name: {recommendation.id}</p>

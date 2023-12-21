@@ -7,16 +7,18 @@ import Editor from './components/Editor';
 import Admin from './components/Users/Admin';
 import Missing from './components/Missing';
 import Unauthorized from './components/Authorization/Unauthorized';
-import Lounge from './components/Lounge';
 import TherapiesPage from './components/Therapies/TherapiesPage';
 import CreateTherapyPage from './components/Therapies/CreateTherapy';
 import EditTherapyPage from './components/Therapies/EditTherapy';
 import CreateAppointment from './components/Appointments/CreateAppointment';
+import MyAppointmentsPage from './components/Appointments/MyAppointments';
 import EditAppointment from './components/Appointments/EditAppointment';
 import AppointmentsPage from './components/Appointments/AppointmentsPage';
 import AppointmentPage from './components/Appointments/AppointmentPage';
 import RecommendationsPage from './components/Recommendations/RecommendationsPage';
 import RecommendationPage from './components/Recommendations/RecommendationPage';
+import CreateRecommendation from './components/Recommendations/CreateRecommendation';
+import EditRecommendation from './components/Recommendations/EditRecommendation';
 import TherapyPage from './components/Therapies/TherapyPage';
 import RequireAuth from './components/Authorization/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
@@ -41,6 +43,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor]} />}>
           <Route path="/" element={<Home />} />
           <Route path="/therapies" element={<TherapiesPage />} />
+          <Route path="/myAppointments" element={<MyAppointmentsPage />} />
           <Route path="/therapies/:therapyId" element={<TherapyPage />} />
           <Route path="/therapies/:therapyId/appointments" element={<AppointmentsPage />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId" element={<AppointmentPage />} />
@@ -53,6 +56,10 @@ function App() {
           <Route path="/therapies/:therapyId/editTherapy" element={<EditTherapyPage />} />
           <Route path="/therapies/:therapyId/appointments/createAppointment" element={<CreateAppointment />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId/editAppointment" element={<EditAppointment />} />
+          <Route path="/therapies/:therapyId/appointments/createAppointment" element={<CreateAppointment />} />
+          <Route path="/therapies/:therapyId/appointments/:appointmentId/editAppointment" element={<EditAppointment />} />
+          <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/createRecommendation" element={<CreateRecommendation />} />
+          <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/:recommendationId/editRecommendation" element={<EditRecommendation />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
@@ -63,10 +70,6 @@ function App() {
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
           <Route path="admin" element={<Admin />} />
           <Route path="registerDoctor" element={<RegisterDoctor />} />
-        </Route>
-
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
-          <Route path="lounge" element={<Lounge />} />
         </Route>
 
         {/* catch all */}

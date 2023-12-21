@@ -11,7 +11,7 @@ const AppointmentPage = () => {
 
     const { auth } = useAuth();
 
-    const canAccessDoctor = auth.roles.includes("Doctor") && auth.roles.includes("Admin");
+    const canAccessDoctor = auth.roles.includes("Doctor") || auth.roles.includes("Admin");
 
     useEffect(() => {
         const fetchTherapy = async () => {
@@ -31,7 +31,7 @@ const AppointmentPage = () => {
     return (
         <section>
             <NavBar />
-            <h2>Therapy Details</h2>
+            <h2>Appointment Details</h2>
             {appointment ? (
                 <div>
                     <p>Name: {appointment.time}</p>

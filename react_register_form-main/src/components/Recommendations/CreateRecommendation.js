@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
-import { useParams } from "react-router-dom";
 import NavBar from "../NavBar";
+import { useParams } from "react-router-dom";
 
 const CreateRecommendation = () => {
 
-  const { therapyId } = useParams();
+  const { therapyId, appointmentId } = useParams();
 
   const [formData, setFormData] = useState({
-    date: "",
-    time: "",
-    price: 0,
+    description: "",
   });
 
   const axiosPrivate = useAxiosPrivate();
@@ -20,29 +18,36 @@ const CreateRecommendation = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    // Validate input to prevent HTML or script injections
+    const sanitizedValue = sanitizeInput(value);
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: sanitizedValue,
     });
+  };
+
+  const sanitizeInput = (value) => {
+    // Basic sanitation function to prevent HTML/script injections
+    // Implement according to your security requirements
+    return value.replace(/(<([^>]+)>)/gi, "");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const datetime = `${formData.date}T${formData.time}:00`; // Add ":00" for seconds
-      const combinedDateTime = new Date(datetime).toISOString();
+      // Implement form validation logic here
+      // For instance, check if fields are not empty, etc.
 
-      const payload = {
-        datetime: combinedDateTime,
-        price: formData.price,
-      };
+      const response = await axiosPrivate.post(`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`, formData); // Adjust the API endpoint and payload as per your backend
 
-      const response = await axiosPrivate.post(`therapies/${therapyId}/appointments`, payload);
-
+      // Handle successful API response
       setSuccessMessage("Recommendation created successfully!");
-      setFormData({ date: "", time: "", price: 0 });
+      // Clear form fields
+      setFormData({ description: "" });
     } catch (error) {
-      console.error("Error creating recommendation:", error);
+      // Handle API call errors
+      console.error("Error creating therapy:", error);
+      // Update state to display error messages or handle errors appropriately
     }
   };
 
@@ -50,49 +55,22 @@ const CreateRecommendation = () => {
     <section>
       <NavBar />
       <div className="form-container">
-        <h2>Create New Recommendation</h2>
+        <h2>Create New Therapy</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
+            <label htmlFor="description">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
               onChange={handleInputChange}
+              placeholder="Enter Therapy Description"
               required
-              className="input-field"
+              className="textarea-field"
             />
-            {errors.date && <span className="error-message">{errors.date}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="time">Time:</label>
-            <input
-              type="time"
-              id="time"
-              name="time"
-              value={formData.time}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-              step="60" // Set step to 60 (one minute)
-            />
-            {errors.time && <span className="error-message">{errors.time}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="price">Price:</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-            {errors.price && (
-              <span className="error-message">{errors.price}</span>
+            {errors.description && (
+              <span className="error-message">{errors.description}</span>
             )}
           </div>
           <button type="submit" className="submit-button">

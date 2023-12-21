@@ -16,32 +16,40 @@ const Appointments = () => {
         navigate(`/therapies/${therapyId}/appointments/${appintmentId}`);
     };
 
-    const canAccessDoctor = auth.roles.includes("Doctor") && !auth.roles.includes("Admin");
+    const [therapy, setTherapy] = useState(null);
+    
 
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
 
-        const getAppointments = async () => {
+        const getTherapyAndAppointments = async () => {
             try {
-                const response = await axiosPrivate.get(`/therapies/${therapyId}/appointments`, {
-                    signal: controller.signal
-                });
-                console.log(response.data);
-                isMounted && setAppointments(response.data);
+                const [therapyResponse, appointmentsResponse] = await Promise.all([
+                    axiosPrivate.get(`/therapies/${therapyId}`, {
+                        signal: controller.signal,
+                    }),
+                    axiosPrivate.get(`/therapies/${therapyId}/appointments`, {
+                        signal: controller.signal,
+                    }),
+                ]);
+                //console.log(therapyResponse.data.resource);
+                //console.log(appointmentsResponse.data);
+                isMounted && setTherapy(therapyResponse.data.resource);
+                isMounted && setAppointments(appointmentsResponse.data);
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
             }
-        }
+        };
 
-        getAppointments();
+        getTherapyAndAppointments();
 
         return () => {
             isMounted = false;
             controller.abort();
-        }
-    }, [])
+        };
+    }, [axiosPrivate, navigate, location, therapyId]);
 
     const createAppointment = () => {
         // Navigate to the Create Therapy page
@@ -66,11 +74,29 @@ const Appointments = () => {
         }
       };
 
+      const doctorId = therapy ? therapy.doctorId : null;
+      const userId = auth.id;
+      const canEditDelete = userId === doctorId || auth.roles.includes("Admin");
+
+      const selectAppointment = async (appointmentId) => {
+          try {
+              await axiosPrivate.put(`/therapies/${therapyId}/appointments/${appointmentId}/select`);
+              // Logic for handling after selection if needed
+              const updatedAppointmentsResponse = await axiosPrivate.get(`/therapies/${therapyId}/appointments`);
+              setAppointments(updatedAppointmentsResponse.data);
+          } catch (error) {
+              console.error(`Error selecting appointment ${appointmentId}:`, error);
+              // Handle selection error (e.g., show error message)
+          }
+      };
+
+      const canSelectAppointment = auth.roles.includes("Patient");
+
     return (
         <article>
             <div className="table-container">
                 <h2>Appointments List</h2>
-                {canAccessDoctor && (
+                {canEditDelete && (
                     <button onClick={createAppointment}>Create Appointment</button>
                 )}
                 {appointments.length ? (
@@ -87,14 +113,15 @@ const Appointments = () => {
                                     <td>{appointment?.time}</td>
                                     <td>{appointment?.id}</td>
                                     <td>
-                                        <button 
-                                            className="table_buttons_blue"
-                                            onClick={() => handleInspect(appointment.id)}
-                                        >
-                                            Inspect
-                                        </button>
-                                        {canAccessDoctor && (
+                                        
+                                        {canEditDelete && (
                                             <>
+                                                <button 
+                                                    className="table_buttons_blue"
+                                                    onClick={() => handleInspect(appointment.id)}
+                                                >
+                                                    Inspect
+                                                </button>
                                                 <button 
                                                     className="table_buttons_blue"
                                                     onClick={() => updateAppointment(appointment.id)}
@@ -108,6 +135,15 @@ const Appointments = () => {
                                                     Remove
                                                 </button>
                                             </>
+                                        )}
+
+                                        {canSelectAppointment && (
+                                            <button 
+                                                className="table_buttons_blue"
+                                                onClick={() => selectAppointment(appointment.id)}
+                                            >
+                                                Select
+                                            </button>
                                         )}
                                     </td>
                                 </tr>

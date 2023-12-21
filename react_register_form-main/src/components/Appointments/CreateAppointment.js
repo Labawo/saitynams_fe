@@ -20,9 +20,24 @@ const CreateAppointment = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    let updatedValue = value;
+
+    // Prevent negative price input
+    if (name === "price" && value < 0) {
+      updatedValue = 0;
+    }
+
+    // Prevent choosing a date in the past
+    if (name === "date") {
+      const currentDate = new Date().toISOString().split("T")[0];
+      if (value < currentDate) {
+        updatedValue = currentDate;
+      }
+    }
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: updatedValue,
     });
   };
 

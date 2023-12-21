@@ -19,6 +19,7 @@ const NavBar = () => {
     const canAccessAdmin = auth.roles.includes("Admin");
     const canAccessDoctor = auth.roles.includes("Doctor") && !auth.roles.includes("Admin");
     const canAccessAdminDoctor = auth.roles.includes("Doctor") && auth.roles.includes("Admin");
+    const canAccessPatient = auth.roles.includes("Patient");
 
     return (
         <nav className="navbar">
@@ -28,7 +29,7 @@ const NavBar = () => {
                 <Link to="/editor" className={canAccessDoctor ? 'nav-link white-bg' : 'hidden'}>Editor</Link>
                 <Link to="/admin" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Admin</Link>
                 <Link to="/registerDoctor" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Register Doctor</Link>
-                <Link to="/lounge" className={canAccessAdminDoctor ? 'nav-link white-bg' : 'hidden'}>Lounge</Link>
+                <Link to="/myAppointments" className={canAccessPatient ? 'nav-link white-bg' : 'hidden'}>My Appointments</Link>
             </div>
             
             <button onClick={logout} className="logout-btn">Sign Out</button>
