@@ -3,6 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../NavBar";
 import useAuth from "../../hooks/UseAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const AppointmentPage = () => {
     const { therapyId, appointmentId } = useParams(); // Get the therapyId from the URL params
@@ -12,6 +15,12 @@ const AppointmentPage = () => {
     const { auth } = useAuth();
 
     const canAccessDoctor = auth.roles.includes("Doctor") || auth.roles.includes("Admin");
+
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate(-1); // This will navigate back one step in the history
+    };
 
     useEffect(() => {
         const fetchTherapy = async () => {
@@ -31,6 +40,9 @@ const AppointmentPage = () => {
     return (
         <section>
             <NavBar />
+            <button onClick={handleGoBack} className="back-button">
+                <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
             <h2>Appointment Details</h2>
             {appointment ? (
                 <div>

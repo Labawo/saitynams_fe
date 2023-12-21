@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../NavBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const EditAppointment = () => {
   const { therapyId } = useParams();
@@ -18,6 +20,10 @@ const EditAppointment = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
+
+  const handleGoBack = () => {
+      navigate(-1); // This will navigate back one step in the history
+  };
 
   useEffect(() => {
     const fetchAppointmentData = async () => {
@@ -73,6 +79,9 @@ const EditAppointment = () => {
   return (
     <section>
       <NavBar />
+      <button onClick={handleGoBack} className="back-button">
+          <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
       <div className="form-container">
         <h2>Edit Appointment</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}

@@ -28,8 +28,8 @@ body {
 
 section {
     width: 100%;
-    max-width: 1500px;
-    min-height: 800px;
+    max-width: 1200px;
+    min-height: 650px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
