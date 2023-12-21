@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const Recommendations = () => {
     const [recommendations, setRecommendations] = useState([]);
@@ -80,23 +82,25 @@ const Recommendations = () => {
     return (
         <article>
             <div className="table-container">
-                <h2>Recommendations List</h2>
+                <h2 className="list-headers">Recommendations List</h2>
                 {canEditDelete && (
-                    <button onClick={createRecommendation}>Create Recommendation</button>
+                    <button onClick={createRecommendation} className="create-button-v1"> + </button>
                 )}
                 {recommendations.length ? (
                     <table className="my-table">
                         <thead>
                             <tr>
                                 <th>Description</th>
-                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             {recommendations.map((recommendation, i) => (
                                 <tr key={i}>
                                     <td>{recommendation?.description}</td>
-                                    <td>{recommendation?.id}</td>
+                                    <td>{recommendation?.time.split('T')[0]}</td>
+                                    <td>{recommendation?.time.split('T')[1].slice(0, 5)}</td>
                                     <td>
                                         {canEditDelete && (
                                             <>
@@ -104,19 +108,19 @@ const Recommendations = () => {
                                                     className="table_buttons_blue"
                                                     onClick={() => handleInspect(recommendation.id)}
                                                 >
-                                                    Inspect
+                                                    <FontAwesomeIcon icon={faSearch} />
                                                 </button>
                                                 <button
                                                     className="table_buttons_blue"
                                                     onClick={() => updateRecommendation(recommendation.id)}
                                                 >
-                                                    Edit
+                                                    <FontAwesomeIcon icon={faEdit} />
                                                 </button>
                                                 <button
                                                     className="table_buttons"
                                                     onClick={() => deleteRecommendation(recommendation.id)}
                                                 >
-                                                    Remove
+                                                    <FontAwesomeIcon icon={faTrash} />
                                                 </button>
                                             </>
                                         )}

@@ -2,6 +2,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import useAuth from "../hooks/UseAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = () => {
 
@@ -26,13 +28,15 @@ const NavBar = () => {
             <div className="navbar-links">
                 <Link to="/" className='nav-link white-bg'>Home</Link>
                 <Link to="/therapies" className='nav-link white-bg'>Therapies</Link>
-                <Link to="/editor" className={canAccessDoctor ? 'nav-link white-bg' : 'hidden'}>Editor</Link>
+                <Link to="/editor" className={canAccessDoctor ? 'nav-link white-bg' : 'hidden'}>Weekly Appointments</Link>
                 <Link to="/admin" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Admin</Link>
                 <Link to="/registerDoctor" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Register Doctor</Link>
                 <Link to="/myAppointments" className={canAccessPatient ? 'nav-link white-bg' : 'hidden'}>My Appointments</Link>
             </div>
             
-            <button onClick={logout} className="logout-btn">Sign Out</button>
+            <button onClick={logout} className="logout-btn">
+                <FontAwesomeIcon icon={faSignOutAlt} />
+            </button>
         </nav>
     );
 };

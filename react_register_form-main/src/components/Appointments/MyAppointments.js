@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "../NavBar";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
-import { useNavigate, useLocation, useParams  } from "react-router-dom";
-import useAuth from "../../hooks/UseAuth";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const AppointmentsPage = () => {
 
@@ -12,7 +13,6 @@ const AppointmentsPage = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
-    const { therapyId } = useParams();
     
 
     useEffect(() => {
@@ -68,21 +68,25 @@ const AppointmentsPage = () => {
                     <table className="my-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Price</th>
+                                <th>Doctor</th>
                             </tr>
                         </thead>
                         <tbody>
                             {appointments.map((appointment, i) => (
                                 <tr key={i}>
-                                    <td>{appointment?.time}</td>
-                                    <td>{appointment?.id}</td>
+                                    <td>{appointment?.time.split('T')[0]}</td>
+                                    <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
+                                    <td>{appointment?.price}€</td>
+                                    <td>{appointment?.doctorName}</td>
                                     <td>
                                         <button 
                                             className="table_buttons_blue"
                                             onClick={() => handleInspect(appointment.id)}
                                         >
-                                            Inspect
+                                            <FontAwesomeIcon icon={faSearch} />
                                         </button>
                                     </td>
                                 </tr>
@@ -102,8 +106,9 @@ const AppointmentsPage = () => {
                             <table className="recommendations-table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Description</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,8 +119,9 @@ const AppointmentsPage = () => {
                                     ) : (
                                         recommendations.map((recommendation, index) => (
                                             <tr key={index}>
-                                                <td>{recommendation.id}</td>
                                                 <td>{recommendation.description}</td>
+                                                <td>{recommendation?.time.split('T')[0]}</td>
+                                                <td>{recommendation?.time.split('T')[1].slice(0, 5)}</td>
                                             </tr>
                                         ))
                                     )}

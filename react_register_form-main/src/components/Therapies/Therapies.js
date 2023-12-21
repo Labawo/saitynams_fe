@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const Therapies = () => {
     const [therapies, setTherapies] = useState([]);
@@ -73,9 +75,9 @@ const Therapies = () => {
     return (
         <article>
             <div className="table-container">
-                <h2>Therapies List</h2>
+                <h2 className="list-headers">Therapies List</h2>
                 {canAccessDoctor && (
-                    <button onClick={createTherapy}>Create Therapy</button>
+                    <button onClick={createTherapy} className="create-button-v1"> + </button>
                 )}
                 {therapies.length ? (
                     <table className="my-table">
@@ -89,13 +91,13 @@ const Therapies = () => {
                             {therapies.map((therapy, i) => (
                                 <tr key={i}>
                                     <td>{therapy?.name}</td>
-                                    <td>{therapy?.id}</td>
+                                    <td>{therapy?.description}</td>
                                     <td>
                                         <button 
                                             className="table_buttons_blue"
                                             onClick={() => handleInspect(therapy.id)}
                                         >
-                                            Inspect
+                                            <FontAwesomeIcon icon={faSearch} />
                                         </button>
                                         {therapy.doctorId === auth.id || canAccessAdmin && (
                                             <>
@@ -103,13 +105,13 @@ const Therapies = () => {
                                                     className="table_buttons_blue"
                                                     onClick={() => updateTherapy(therapy.id)}
                                                 >
-                                                    Edit
+                                                    <FontAwesomeIcon icon={faEdit} />
                                                 </button>
                                                 <button 
                                                     className="table_buttons"
                                                     onClick={() => removeTherapy(therapy.id)} // Call remove function on click
                                                 >
-                                                    Remove
+                                                    <FontAwesomeIcon icon={faTrash} />
                                                 </button>
                                             </>
                                         )}
@@ -124,7 +126,7 @@ const Therapies = () => {
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
-                    <button onClick={loadTherapies}>Load More</button>
+                    <button onClick={loadTherapies} className="load-button-v1">...</button>
                 )}
             </div>
         </article>

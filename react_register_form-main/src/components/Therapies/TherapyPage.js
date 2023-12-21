@@ -2,11 +2,19 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../NavBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const TherapyPage = () => {
     const { therapyId } = useParams(); // Get the therapyId from the URL params
     const [therapy, setTherapy] = useState(null);
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate(-1); // This will navigate back one step in the history
+    };
 
     useEffect(() => {
         const fetchTherapy = async () => {
@@ -25,6 +33,9 @@ const TherapyPage = () => {
     return (
         <section>
             <NavBar />
+            <button onClick={handleGoBack} className="back-button">
+                <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
             <h2>Therapy Details</h2>
             {therapy ? (
                 <div>

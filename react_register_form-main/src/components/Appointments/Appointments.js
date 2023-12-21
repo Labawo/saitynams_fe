@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation, useParams  } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faSearch, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
@@ -95,55 +97,55 @@ const Appointments = () => {
     return (
         <article>
             <div className="table-container">
-                <h2>Appointments List</h2>
+                <h2 className="list-headers">Appointments List</h2>
                 {canEditDelete && (
-                    <button onClick={createAppointment}>Create Appointment</button>
+                    <button onClick={createAppointment} className="create-button-v1"> + </button>
                 )}
                 {appointments.length ? (
                     <table className="my-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             {appointments.map((appointment, i) => (
                                 <tr key={i}>
-                                    <td>{appointment?.time}</td>
-                                    <td>{appointment?.id}</td>
+                                    <td>{appointment?.time.split('T')[0]}</td>
+                                    <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
+                                    <td>{appointment?.price}€</td>
                                     <td>
-                                        
+                                        {canSelectAppointment && (
+                                            <button 
+                                                className="table_buttons_green"
+                                                onClick={() => selectAppointment(appointment.id)}
+                                            >
+                                                <FontAwesomeIcon icon={faCheck} />
+                                            </button>
+                                        )}
                                         {canEditDelete && (
                                             <>
                                                 <button 
                                                     className="table_buttons_blue"
                                                     onClick={() => handleInspect(appointment.id)}
                                                 >
-                                                    Inspect
+                                                    <FontAwesomeIcon icon={faSearch} />
                                                 </button>
                                                 <button 
                                                     className="table_buttons_blue"
                                                     onClick={() => updateAppointment(appointment.id)}
                                                 >
-                                                    Edit
+                                                    <FontAwesomeIcon icon={faEdit} />
                                                 </button>
                                                 <button
                                                     className="table_buttons"
                                                     onClick={() => deleteAppointment(appointment.id)} // Invoke deleteAppointment on click
                                                 >
-                                                    Remove
+                                                    <FontAwesomeIcon icon={faTrash} />
                                                 </button>
                                             </>
-                                        )}
-
-                                        {canSelectAppointment && (
-                                            <button 
-                                                className="table_buttons_blue"
-                                                onClick={() => selectAppointment(appointment.id)}
-                                            >
-                                                Select
-                                            </button>
                                         )}
                                     </td>
                                 </tr>

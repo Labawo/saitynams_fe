@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../NavBar";
 import useAuth from "../../hooks/UseAuth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const CreateTherapy = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +20,12 @@ const CreateTherapy = () => {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1); // This will navigate back one step in the history
+  };
 
   useEffect(() => {
     if (canAccessAdmin) {
@@ -72,6 +81,9 @@ const CreateTherapy = () => {
   return (
     <section>
       <NavBar />
+      <button onClick={handleGoBack} className="back-button">
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
       <div className="form-container">
         <h2>Create New Therapy</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}

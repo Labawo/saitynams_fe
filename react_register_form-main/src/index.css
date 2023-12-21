@@ -9,7 +9,7 @@
 html {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
-    color: #fff;
+    color: black;
 }
 
 body {
@@ -28,13 +28,13 @@ body {
 
 section {
     width: 100%;
-    max-width: 800px;
-    min-height: 400px;
+    max-width: 1500px;
+    min-height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1rem;
-    background-color: grey;
+    padding: 2rem;
+    background-color: white;
 }
 
 form {
@@ -46,7 +46,7 @@ form {
 }
 
 a, a:visited {
-    color: #fff;
+    color: black;
 }
 
 input[type="text"],
@@ -119,42 +119,52 @@ button {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: grey;
+    background-color: white;
 }
 
 .navbar-links {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .nav-link {
     text-decoration: none;
     color: black;
+    font-size: 20px;
     padding: 8px 12px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease; 
-}
-
-.nav-link:hover {
-    background-color: #ddd; /* Change background color on hover */
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition effect */
+    border: 1px solid black;
 }
 
 .nav-link.white-bg {
-    background-color: white; /* Apply white background specifically */
-    color:black;
+    background-color: white;
+    color: black;
 }
 
-.hidden {
-    display: none;
+.nav-link.white-bg:hover {
+    background-color: black;
+    color: white;
 }
 
 .logout-btn {
     margin-top: 0;
-    padding: 5px 10px;
-    font-size: 14px;
+    padding: 10px, 15px;
+    font-size: 18px;
+    border-radius: 50%;
     border: none;
     background-color: #df2323;
     cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition effect */
+}
+
+.logout-btn:hover {
+    background-color: #ff5656; /* Change background color on hover */
+}
+
+.hidden {
+    display: none;
 }
 
 .list-container {
@@ -180,7 +190,7 @@ button {
 
 .table-container {
     width: 80%;
-    margin: 20px auto;
+    margin: auto;
 }
 
 .my-table {
@@ -193,47 +203,60 @@ button {
 .my-table th,
 .my-table td:not(:last-child){
     padding: 10px;
-    border: 1px solid #ccc;
+    border: none;
     text-align: left;
 }
 
-.my-table th {
-    background-color: #f0f0f0;
-}
-
-.my-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.my-table td:last-child {
-    background-color: grey;
-    border: none; /* Optional: Remove border for the last td */
-}
-
-.my-table td:not(:last-child){
+.my-table td:not(:last-child) {
+    padding-left: 15px;
     min-width: 150px; /* Set a minimum width for cells */
     max-width: 300px; /* Set a maximum width for cells */
     word-wrap: break-word; /* Wrap long content within cells */
 }
 
-.table_buttons{
+.table_buttons {
     margin-top: 0;
-    margin-left: 5px;
-    padding: 5px 10px;
+    margin-left: 10px;
+    padding: 10px;
     font-size: 14px;
-    border: none;
-    background-color: #df2323;
+    border: 1px solid #df2323;
+    background-color: white;
+    border-radius: 50%;
     cursor: pointer;
 }
 
-.table_buttons_blue{
+.table_buttons_blue {
     margin-top: 0;
-    margin-left: 5px;
-    padding: 5px 10px;
+    margin-left: 10px;
+    padding: 10px;
     font-size: 14px;
-    border: none;
-    background-color: #233cdf;
+    border: 1px solid #233cdf;
+    background-color: white;
+    border-radius: 50%;
     cursor: pointer;
+}
+
+.table_buttons_green {
+    margin-top: 0;
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid rgb(3, 164, 3);
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.table_buttons:hover {
+    background-color: #df2323;
+}
+
+.table_buttons_blue:hover {
+    background-color: #233cdf;
+}
+
+.table_buttons_green:hover {
+    background-color: rgb(3, 164, 3);
 }
 
 /* Example CSS Styles */
@@ -263,6 +286,27 @@ button {
 
 .success-message {
     color: green;
+}
+
+.login-div {
+    margin:auto;
+    width: 50%;
+    justify-content: center;
+}
+
+.login-div button {
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 25px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.login-div button:hover {
+    color:white;
+    background-color: black;
 }
 
 .popup {
@@ -310,19 +354,102 @@ button {
 }
 
 .recommendations-table th, .recommendations-table td {
-    border: 1px solid #ddd;
+    border: none;
     padding: 8px;
     text-align: left;
 }
 
-.recommendations-table th {
-    background-color: #f2f2f2;
+.recommendations-table td {
+    padding-left: 10px;
 }
 
-.recommendations-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+.select-field {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+    background-color: white;
+    color: #333;
 }
 
-.recommendations-table tbody tr:hover {
-    background-color: #f5f5f5;
+/* Styling the arrow */
+.select-field::after {
+    content: '\25BC'; /* Unicode for the down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevent click on the arrow */
+}
+
+/* Remove default arrow appearance */
+.select-field::-ms-expand {
+    display: none;
+}
+
+/* Styling the dropdown options */
+.select-field option {
+    background-color: white;
+    color: #333;
+}
+
+.create-button-v1 {
+    border-radius: 50%;
+    margin-left: 50%;
+    margin-right:50%;
+    padding: 10px;
+    padding-left : 15px;
+    padding-right : 15px;
+    background-color: white;
+    border : 1px solid rgb(68, 68, 250);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.create-button-v1:hover {
+    color : white;
+    background-color: rgb(68, 68, 250);
+}
+
+.load-button-v1 {
+    border-radius: 50%;
+    margin-left: 50%;
+    margin-right:50%;
+    padding: 10px;
+    padding-left : 15px;
+    padding-right : 15px;
+    background-color: white;
+    border : 1px solid black;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.load-button-v1:hover {
+    color : white;
+    background-color: black;
+}
+
+.back-button {
+    border-radius: 50%;
+    width: 50px;
+    padding: 10px;
+    padding-left : 15px;
+    padding-right : 15px;
+    background-color: white;
+    border : 1px solid black;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    color : white;
+    background-color: black;
+}
+
+.list-headers {
+    margin-left:40%;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
 }

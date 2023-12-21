@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Users = () => {
     const [users, setUsers] = useState();
@@ -49,14 +51,14 @@ const Users = () => {
     return (
         <article>
             <div className="table-container">
-                <h2>Users List</h2>
+                <h2 className="list-headers">Users List</h2>
                 {users?.length
                     ? (
                         <table className="my-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Description</th>
+                                    <th>Email</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +71,7 @@ const Users = () => {
                                                 className="table_buttons"
                                                 onClick={() => deleteUser(user.id)} // Invoke deleteAppointment on click
                                             >
-                                                Remove
+                                                <FontAwesomeIcon icon={faTrash} />
                                             </button>
                                         </td>
                                     </tr>

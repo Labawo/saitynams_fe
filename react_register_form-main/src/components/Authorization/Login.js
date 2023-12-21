@@ -48,7 +48,7 @@ const Login = () => {
             const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
             const id = decodedToken.sub;
             //console.log(id);
-            setAuth({ user, pwd, roles, id, accessToken, refreshToken });
+            setAuth({ user, roles, id, accessToken, refreshToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });
@@ -68,30 +68,33 @@ const Login = () => {
 
     return (
         <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required
-                />
+            <div className='login-div'>
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <h1>Sign In</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                    />
 
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required
-                />
-                <button>Sign In</button>
-            </form>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                    />
+                    <button>Sign In</button>
+                </form>
+            </div>
+            
             <p>
                 Need an Account?<br />
                 <span className="line">
