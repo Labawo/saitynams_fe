@@ -214,51 +214,6 @@ button {
     word-wrap: break-word; /* Wrap long content within cells */
 }
 
-.table_buttons {
-    margin-top: 0;
-    margin-left: 10px;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #df2323;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.table_buttons_blue {
-    margin-top: 0;
-    margin-left: 10px;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #233cdf;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.table_buttons_green {
-    margin-top: 0;
-    margin-left: 10px;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid rgb(3, 164, 3);
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.table_buttons:hover {
-    background-color: #df2323;
-}
-
-.table_buttons_blue:hover {
-    background-color: #233cdf;
-}
-
-.table_buttons_green:hover {
-    background-color: rgb(3, 164, 3);
-}
-
 /* Example CSS Styles */
 .form-container {
     margin: 20px;
@@ -393,42 +348,6 @@ button {
 .select-field option {
     background-color: white;
     color: #333;
-}
-
-.create-button-v1 {
-    border-radius: 50%;
-    margin-left: 50%;
-    margin-right:50%;
-    padding: 10px;
-    padding-left : 15px;
-    padding-right : 15px;
-    background-color: white;
-    border : 1px solid rgb(68, 68, 250);
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.create-button-v1:hover {
-    color : white;
-    background-color: rgb(68, 68, 250);
-}
-
-.load-button-v1 {
-    border-radius: 50%;
-    margin-left: 50%;
-    margin-right:50%;
-    padding: 10px;
-    padding-left : 15px;
-    padding-right : 15px;
-    background-color: white;
-    border : 1px solid black;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.load-button-v1:hover {
-    color : white;
-    background-color: black;
 }
 
 .back-button {

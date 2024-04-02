@@ -11,6 +11,7 @@ const CreateTherapy = () => {
     name: "",
     description: "",
     doctorId: "",
+    image: null, // New field for image
   });
 
   const [doctors, setDoctors] = useState([]);
@@ -44,12 +45,12 @@ const CreateTherapy = () => {
   }, [axiosPrivate, canAccessAdmin]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     // Validate input to prevent HTML or script injections
     const sanitizedValue = sanitizeInput(value);
     setFormData({
       ...formData,
-      [name]: sanitizedValue,
+      [name]: name === "image" ? files[0] : sanitizedValue,
     });
   };
 
@@ -64,19 +65,52 @@ const CreateTherapy = () => {
     try {
       // Implement form validation logic here
       // For instance, check if fields are not empty, etc.
-
-      const response = await axiosPrivate.post("/therapies", formData); // Adjust the API endpoint and payload as per your backend
-
+  
+      // Initialize imageData as null
+      let imageData1 = null;
+  
+      // Check if formData.image is not null
+      if (formData.image) {
+        // Convert the image file to a base64 string asynchronously
+        imageData1 = await readFileAsBase64(formData.image);
+      }
+  
+      // Include the base64 string in the JSON payload
+      const therapyData = {
+        name: formData.name,
+        description: formData.description,
+        doctorId: formData.doctorId,
+        imageData: imageData1, // Base64 string of the image or null if no image is selected
+      };
+  
+      // Send therapyData as JSON payload
+      const response = await axiosPrivate.post("/therapies", therapyData);
+  
       // Handle successful API response
       setSuccessMessage("Therapy created successfully!");
       // Clear form fields
-      setFormData({ name: "", description: "" });
+      setFormData({ name: "", description: "", doctorId: "", image: null });
+      document.getElementById("image").value = "";
     } catch (error) {
       // Handle API call errors
       console.error("Error creating therapy:", error);
       // Update state to display error messages or handle errors appropriately
     }
-  };
+  };  
+  
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };  
+  
 
   return (
     <section>
@@ -136,6 +170,18 @@ const CreateTherapy = () => {
               </select>
             </div>
           )}
+          <div className="form-group">
+            <label htmlFor="image">Image:</label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleInputChange}
+              accept="image/*"
+              className="input-field"
+            />
+            {errors.image && <span className="error-message">{errors.image}</span>}
+          </div>
           <button type="submit" className="submit-button">
             Create
           </button>

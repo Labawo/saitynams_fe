@@ -57,7 +57,7 @@ const AppointmentPage = () => {
                     
                 </div>
             ) : (
-                <p>Loading therapy details...</p>
+                <p>Loading appointment details...</p>
             )}
         </section>
     );

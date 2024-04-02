@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import useAxiosPrivate from "./../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Editor = () => {
     const [appointments, setAppointments] = useState([]);
@@ -36,6 +38,14 @@ const Editor = () => {
         };
     }, [axiosPrivate, navigate, location]);
 
+    const handleDeleteAppointment = async (appointmentId) => {
+        try {
+            await axiosPrivate.delete(`/getWeeklyAppointments/${appointmentId}`);
+            setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
+        } catch (error) {
+            console.error("Error deleting appointment:", error);
+        }
+    };
 
     return (
         <section>
@@ -55,7 +65,11 @@ const Editor = () => {
                                 <tr key={i}>
                                     <td>{appointment?.time.split('T')[0]}</td>
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
-                                    <td></td>
+                                    <td>
+                                        <button className="table_buttons" onClick={() => handleDeleteAppointment(appointment.id)}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -68,4 +82,4 @@ const Editor = () => {
     )
 }
 
-export default Editor
+export default Editor;

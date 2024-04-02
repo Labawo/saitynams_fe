@@ -44,6 +44,10 @@ const CreateAppointment = () => {
       }
     }
 
+    if (name === "price" && isNaN(value)) {
+      return; // Don't update state if input is not numeric
+    }
+
     setFormData({
       ...formData,
       [name]: updatedValue,

@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../NavBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import "./TherapyPage.css"; // Import a CSS file for styling (create TherapyPage.css in the same directory)
 
 const TherapyPage = () => {
     const { therapyId } = useParams(); // Get the therapyId from the URL params
@@ -31,19 +32,21 @@ const TherapyPage = () => {
     }, [axiosPrivate, therapyId]);
 
     return (
-        <section>
+        <section className="therapy-page">
             <NavBar />
             <button onClick={handleGoBack} className="back-button">
                 <FontAwesomeIcon icon={faArrowLeft} />
             </button>
-            <h2>Therapy Details</h2>
             {therapy ? (
-                <div>
-                    <p>Name: {therapy.name}</p>
-                    <p>Description: {therapy.description}</p>
-                    {/* Add other details you want to display */}
+                <div className="therapy-details">
+                    <h2>{therapy.name}</h2>
+                    <p>{therapy.description}</p>
+                    {/* Display the image if available */}
+                    {therapy.imageData && (
+                        <img src={therapy.imageData} alt="Therapy" className="therapy-image" />
+                    )}
                     <Link to={`/therapies/${therapyId}/appointments`}>
-                        <button>See Appointments</button>
+                        <button className="appointments-button">See Appointments</button>
                     </Link>
                 </div>
             ) : (

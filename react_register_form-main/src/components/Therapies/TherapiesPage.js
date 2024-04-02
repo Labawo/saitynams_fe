@@ -1,15 +1,14 @@
 import Therapies from './Therapies';
 import NavBar from "../NavBar";
+import "./TherapyPage.css"; // Import a CSS file for styling
 
 const TherapiesPage = () => {
     return (
-        <section>
+        <section className="therapies-page">
             <NavBar />
-            <br />
             <Therapies />
-            <br />
         </section>
-    )
+    );
 }
 
-export default TherapiesPage
+export default TherapiesPage;

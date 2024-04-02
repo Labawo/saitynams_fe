@@ -12,6 +12,7 @@ const EditTherapy = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    imageData: null, // New field for image
   });
 
   const handleGoBack = () => {
@@ -21,24 +22,21 @@ const EditTherapy = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const [isLoading, setIsLoading] = useState(true);
-
-  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchTherapyData = async () => {
       try {
         const response = await axiosPrivate.get(`/therapies/${therapyId}`);
-        const { name, description } = response.data.resource;
-        setFormData({ name, description });
+        const { name, description, imageData } = response.data.resource;
+        setFormData({ name, description, imageData }); // Set the image data from the response
         setIsLoading(false);
-        console.log(name);
       } catch (error) {
         console.error("Error fetching therapy:", error);
         if (error.response && error.response.status === 403) {
-            // Unauthorized error, redirect to unauthorized page
-            navigate("/therapies"); // Replace "/unauthorized" with your unauthorized page route
-          }
+          // Unauthorized error, redirect to unauthorized page
+          navigate("/therapies"); // Replace "/unauthorized" with your unauthorized page route
+        }
       }
     };
 
@@ -46,12 +44,27 @@ const EditTherapy = () => {
   }, [axiosPrivate, therapyId, navigate]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     const sanitizedValue = sanitizeInput(value);
-    setFormData({
-      ...formData,
-      [name]: sanitizedValue,
-    });
+    
+    if (name === "image") {
+      const reader = new FileReader();
+      const file = files[0];
+      
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          imageData: reader.result, // Convert image to base64 string and set it in formData
+        });
+      };
+      
+      reader.readAsDataURL(file); // Read the image file as a data URL
+    } else {
+      setFormData({
+        ...formData,
+        [name]: sanitizedValue,
+      });
+    }
   };
 
   const sanitizeInput = (value) => {
@@ -61,11 +74,31 @@ const EditTherapy = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosPrivate.put(`/therapies/${therapyId}`, formData);
+      let formDataToSend = { ...formData }; // Copy the formData to prevent modifying the original state
+      
+      // If imageData is a File object, convert it to base64 string
+      if (formDataToSend.imageData instanceof File) {
+        const imageDataBase64 = await readFileAsBase64(formDataToSend.imageData);
+        formDataToSend = {
+          ...formDataToSend,
+          imageData: imageDataBase64,
+        };
+      }
+
+      const response = await axiosPrivate.put(`/therapies/${therapyId}`, formDataToSend);
       setSuccessMessage("Therapy updated successfully!");
     } catch (error) {
       console.error("Error updating therapy:", error);
     }
+  };
+
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   if (isLoading) {
@@ -103,6 +136,17 @@ const EditTherapy = () => {
               onChange={handleInputChange}
               required
               className="textarea-field"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="image">Image:</label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleInputChange}
+              accept="image/*"
+              className="input-field"
             />
           </div>
           <button type="submit" className="submit-button">

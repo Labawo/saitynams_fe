@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
+import "./Therapies.css"; // Import CSS file for styling
 
 const Therapies = () => {
     const [therapies, setTherapies] = useState([]);
@@ -73,7 +74,7 @@ const Therapies = () => {
       };
 
     return (
-        <article>
+        <article className="therapies-container">
             <div className="table-container">
                 <h2 className="list-headers">Therapies List</h2>
                 {canAccessDoctor && (
@@ -94,7 +95,7 @@ const Therapies = () => {
                                     <td>{therapy?.description}</td>
                                     <td>
                                         <button 
-                                            className="table_buttons_blue"
+                                            className="table-buttons-blue"
                                             onClick={() => handleInspect(therapy.id)}
                                         >
                                             <FontAwesomeIcon icon={faSearch} />
@@ -102,13 +103,13 @@ const Therapies = () => {
                                         {therapy.doctorId === auth.id || canAccessAdmin && (
                                             <>
                                                 <button 
-                                                    className="table_buttons_blue"
+                                                    className="table-buttons-blue"
                                                     onClick={() => updateTherapy(therapy.id)}
                                                 >
                                                     <FontAwesomeIcon icon={faEdit} />
                                                 </button>
                                                 <button 
-                                                    className="table_buttons"
+                                                    className="table-buttons-red"
                                                     onClick={() => removeTherapy(therapy.id)} // Call remove function on click
                                                 >
                                                     <FontAwesomeIcon icon={faTrash} />
