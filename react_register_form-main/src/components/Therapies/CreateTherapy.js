@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
-import NavBar from "../NavBar";
+import NavBar from "../Main/NavBar";
 import useAuth from "../../hooks/UseAuth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';

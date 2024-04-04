@@ -1,11 +1,12 @@
 import Register from './components/Authorization/Register';
 import RegisterDoctor from './components/Authorization/RegisterDoctor';
 import Login from './components/Authorization/Login';
-import Home from './components/Home';
-import Layout from './components/Layout';
+import Home from './components/Main/Home';
+import Layout from './components/Main/Layout';
 import Editor from './components/Editor';
 import Admin from './components/Users/Admin';
-import Missing from './components/Missing';
+import Patients from './components/Users/Patients';
+import Missing from './components/Main/Missing';
 import Unauthorized from './components/Authorization/Unauthorized';
 import TherapiesPage from './components/Therapies/TherapiesPage';
 import CreateTherapyPage from './components/Therapies/CreateTherapy';
@@ -21,6 +22,12 @@ import CreateRecommendation from './components/Recommendations/CreateRecommendat
 import EditRecommendation from './components/Recommendations/EditRecommendation';
 import TherapyPage from './components/Therapies/TherapyPage';
 import RequireAuth from './components/Authorization/RequireAuth';
+import NotesPage from './components/Notes/NotesPage';
+import CreateNotePage from './components/Notes/CreateNote';
+import EditNotePage from './components/Notes/EditNote';
+import NotePage from './components/Notes/NotePage';
+import TestsPage from './components/Tests/TestsPage';
+import NewTestPage from './components/Tests/NewTest';
 import { Routes, Route } from 'react-router-dom';
 
 const ROLES = {
@@ -40,6 +47,15 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route path="/notes" element={<NotesPage />} />
+          <Route path="/notes/:noteId" element={<NotePage />} />
+          <Route path="/notes/createNote" element={<CreateNotePage />} />
+          <Route path="/notes/:noteId/editNote" element={<EditNotePage />} />
+          <Route path="/tests" element={<TestsPage />} />
+          <Route path="/tests/NewTest" element={<NewTestPage />} />
+        </Route>
+
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor]} />}>
           <Route path="/" element={<Home />} />
           <Route path="/therapies" element={<TherapiesPage />} />
@@ -60,6 +76,7 @@ function App() {
           <Route path="/therapies/:therapyId/appointments/:appointmentId/editAppointment" element={<EditAppointment />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/createRecommendation" element={<CreateRecommendation />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/:recommendationId/editRecommendation" element={<EditRecommendation />} />
+          <Route path="/patients" element={<Patients />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>

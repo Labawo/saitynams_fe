@@ -1,15 +1,13 @@
-import Users from './Users';
 import NavBar from "../Main/NavBar";
 
-const Admin = () => {
+const Patients = () => {
     return (
         <section>
             <NavBar />
             <br />
-            <Users />
             <br />
         </section>
     )
 }
 
-export default Admin
+export default Patients

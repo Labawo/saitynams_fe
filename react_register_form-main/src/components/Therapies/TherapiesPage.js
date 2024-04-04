@@ -1,5 +1,5 @@
 import Therapies from './Therapies';
-import NavBar from "../NavBar";
+import NavBar from "../Main/NavBar";
 import "./TherapyPage.css"; // Import a CSS file for styling
 
 const TherapiesPage = () => {

@@ -1,15 +1,15 @@
-import Users from './Users';
+import Notes from './Notes';
 import NavBar from "../Main/NavBar";
 
-const Admin = () => {
+const NotesPage = () => {
+
     return (
         <section>
             <NavBar />
             <br />
-            <Users />
             <br />
         </section>
     )
 }
 
-export default Admin
+export default NotesPage
