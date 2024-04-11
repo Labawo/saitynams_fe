@@ -150,6 +150,7 @@ const CreateTherapy = () => {
                 value={formData.doctorId}
                 onChange={handleInputChange}
                 className="select-field"
+                required
               >
                 <option value="">Select Doctor</option>
                 {doctors.map((doctor) => (

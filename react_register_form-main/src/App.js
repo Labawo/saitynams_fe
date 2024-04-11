@@ -53,7 +53,7 @@ function App() {
           <Route path="/notes/createNote" element={<CreateNotePage />} />
           <Route path="/notes/:noteId/editNote" element={<EditNotePage />} />
           <Route path="/tests" element={<TestsPage />} />
-          <Route path="/tests/NewTest" element={<NewTestPage />} />
+          <Route path="/tests/newTest" element={<NewTestPage />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor]} />}>
