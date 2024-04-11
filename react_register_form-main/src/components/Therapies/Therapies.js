@@ -21,7 +21,17 @@ const Therapies = () => {
     };
 
     const canAccessDoctor = auth.roles.includes("Doctor") || auth.roles.includes("Admin");
-    const canAccessAdmin = auth.roles.includes("Admin");
+    
+    const canAccessAdminOrCreator = (therapy) => {
+        // Check if the authenticated user is an admin
+        const isAdmin = auth.roles.includes("Admin");
+      
+        // Check if the authenticated user is the creator of the therapy
+        const isCreator = therapy.doctorId === auth.id;
+      
+        // Return true if the user is either an admin or the creator of the therapy
+        return isAdmin || isCreator;
+      };
 
     const fetchTherapies = useCallback(async (pageNumber) => {
         try {
@@ -93,6 +103,7 @@ const Therapies = () => {
                                 <tr key={i}>
                                     <td>{therapy?.name}</td>
                                     <td>{therapy?.description}</td>
+                                    <td>{therapy.doctorId === auth.id ? "true" : "false"}</td>
                                     <td>
                                         <button 
                                             className="table-buttons-blue"
@@ -100,7 +111,7 @@ const Therapies = () => {
                                         >
                                             <FontAwesomeIcon icon={faSearch} />
                                         </button>
-                                        {therapy.doctorId === auth.id || canAccessAdmin && (
+                                        {canAccessAdminOrCreator(therapy) && (
                                             <>
                                                 <button 
                                                     className="table-buttons-blue"

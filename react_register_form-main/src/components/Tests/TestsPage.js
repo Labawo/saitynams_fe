@@ -8,8 +8,7 @@ const TestsPage = () => {
     return (
         <section>
             <NavBar />
-            <br />
-            <br />
+            <Tests />
         </section>
     )
 }

@@ -6,8 +6,7 @@ const NotesPage = () => {
     return (
         <section>
             <NavBar />
-            <br />
-            <br />
+            <Notes />
         </section>
     )
 }

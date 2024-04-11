@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 
 const CreateRecommendation = () => {
 
@@ -18,12 +15,6 @@ const CreateRecommendation = () => {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-      navigate(-1); // This will navigate back one step in the history
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,9 +54,6 @@ const CreateRecommendation = () => {
   return (
     <section>
       <NavBar />
-      <button onClick={handleGoBack} className="back-button">
-          <FontAwesomeIcon icon={faArrowLeft} />
-      </button>
       <div className="form-container">
         <h2>Create New Therapy</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}
