@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../hooks/UseAuth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
 //import "./Notes.css"; // Import CSS file for styling
@@ -13,7 +12,6 @@ const Notes = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
-    const { auth } = useAuth();
 
     const handleInspect = (noteId) => {
         // Navigate to the InspectPage with the noteId parameter

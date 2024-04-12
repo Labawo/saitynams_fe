@@ -2,15 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const EditNote = () => {
   const { noteId } = useParams(); // Get the noteId from the URL params
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
     content: ""
   });
 
@@ -23,8 +20,8 @@ const EditNote = () => {
     const fetchNoteData = async () => {
       try {
         const response = await axiosPrivate.get(`/notes/${noteId}`);
-        const { name, content } = response.data;
-        setFormData({ name, content });
+        const { content } = response.data.resource;
+        setFormData({ content });
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching note:", error);
@@ -73,18 +70,6 @@ const EditNote = () => {
         <h2>Edit Note</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Title:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-          </div>
           <div className="form-group">
             <label htmlFor="content">Content:</label>
             <textarea

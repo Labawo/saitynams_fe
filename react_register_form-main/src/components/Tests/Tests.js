@@ -6,7 +6,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Tests = () => {
     const [tests, setTests] = useState([]);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(2);
     const [isLoading, setIsLoading] = useState(false);
     const [patients, setPatients] = useState([]);
     const [selectedPatientId, setSelectedPatientId] = useState(""); // State for selected patient
@@ -46,7 +46,7 @@ const Tests = () => {
     useEffect(() => {
         if (selectedPatientId) {
             console.log(selectedPatientId);
-            setPage(1); // Reset page number
+            setPage(2); // Reset page number
             setTests([]); // Clear existing tests
             loadTests(); // Load tests for the selected patient
         }

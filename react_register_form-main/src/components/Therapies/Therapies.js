@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
-import "./Therapies.css"; // Import CSS file for styling
 
 const Therapies = () => {
     const [therapies, setTherapies] = useState([]);

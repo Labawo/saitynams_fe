@@ -12,7 +12,7 @@ const NotePage = () => {
         const fetchNote = async () => {
             try {
                 const response = await axiosPrivate.get(`/notes/${noteId}`);
-                setNote(response.data);
+                setNote(response.data.resource);
             } catch (error) {
                 console.error(error);
                 // Handle error, e.g., show a message or navigate to an error page
@@ -27,7 +27,7 @@ const NotePage = () => {
             <NavBar />
             {note ? (
                 <div className="note-details">
-                    <h2>{note.title}</h2>
+                    <h2>{note.name}</h2>
                     <p>{note.content}</p>
                 </div>
             ) : (

@@ -1,10 +1,9 @@
 import Therapies from './Therapies';
 import NavBar from "../Main/NavBar";
-import "./TherapyPage.css"; // Import a CSS file for styling
 
 const TherapiesPage = () => {
     return (
-        <section className="therapies-page">
+        <section>
             <NavBar />
             <Therapies />
         </section>

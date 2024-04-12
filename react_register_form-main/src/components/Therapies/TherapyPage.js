@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
-import "./TherapyPage.css"; // Import a CSS file for styling (create TherapyPage.css in the same directory)
 
 const TherapyPage = () => {
     const { therapyId } = useParams(); // Get the therapyId from the URL params
