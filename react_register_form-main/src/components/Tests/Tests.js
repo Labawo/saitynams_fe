@@ -105,6 +105,7 @@ const Tests = () => {
                 </div>
             )}
             <div className="table-container">
+                <h2 className="list-headers">BDI Tests</h2>
                 {tests.length ? (
                     <table className="my-table">
                         <thead>
@@ -138,9 +139,9 @@ const Tests = () => {
                 )}
                 {isLoading ? (
                     <p>Loading...</p>
-                ) : (
+                ) : tests.length > 2 ? (
                     <button onClick={loadNextPageTests} className="load-button-v1">Load More</button>
-                )}
+                ) : null}
             </div>
         </article>
     );

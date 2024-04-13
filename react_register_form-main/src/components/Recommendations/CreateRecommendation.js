@@ -55,11 +55,11 @@ const CreateRecommendation = () => {
     <section>
       <NavBar />
       <div className="form-container">
-        <h2>Create New Therapy</h2>
+        <h2>Create new recommendation</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="description">Description:</label><br />
             <textarea
               id="description"
               name="description"

@@ -73,7 +73,6 @@ const TestsPage = () => {
         <section>
             <NavBar />
             <div className="page-header">
-                <h1>Tests</h1>
                 {canAccess() && (
                     <button onClick={createTest} className="create-button-v1"> {/* Button to create a test */}
                         <FontAwesomeIcon icon={faPlus} /> {/* Plus icon */}

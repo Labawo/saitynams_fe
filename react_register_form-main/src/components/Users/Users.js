@@ -153,13 +153,13 @@ const Users = () => {
                                                     value={newPassword}
                                                     onChange={handlePasswordChange}
                                                     placeholder="New Password"
-                                                />
+                                                /> <br />
                                                 <input
                                                     type="password"
                                                     value={repeatPassword}
                                                     onChange={handleRepeatPasswordChange}
                                                     placeholder="Repeat Password"
-                                                />
+                                                /> <br />
                                                 <button
                                                     className="table_buttons"
                                                     onClick={resetPassword}

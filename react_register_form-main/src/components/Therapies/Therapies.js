@@ -136,9 +136,9 @@ const Therapies = () => {
                 )}
                 {isLoading ? (
                     <p>Loading...</p>
-                ) : (
-                    <button onClick={loadTherapies} className="load-button-v1">...</button>
-                )}
+                ) : therapies.length > 1 ? (
+                    <button onClick={loadTherapies} className="load-button-v1">Load More</button>
+                ) : null}
             </div>
         </article>
     );

@@ -115,9 +115,9 @@ const Notes = () => {
                 )}
                 {isLoading ? (
                     <p>Loading...</p>
-                ) : (
-                    <button onClick={loadNotes} className="load-button-v1">...</button>
-                )}
+                ) : notes.length > 2 ? (
+                    <button onClick={loadNotes} className="load-button-v1">Load More</button>
+                ) : null}
             </div>
         </article>
     );

@@ -80,7 +80,7 @@ const CreateAppointment = () => {
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="date">Date:</label>
+            <label htmlFor="date">Date:</label><br />
             <input
               type="date"
               id="date"
@@ -93,7 +93,7 @@ const CreateAppointment = () => {
             {errors.date && <span className="error-message">{errors.date}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="time">Time:</label>
+            <label htmlFor="time">Time:</label><br />
             <input
               type="time"
               id="time"
@@ -107,7 +107,7 @@ const CreateAppointment = () => {
             {errors.time && <span className="error-message">{errors.time}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="price">Price:</label>
+            <label htmlFor="price">Price:</label><br />
             <input
               type="number"
               id="price"

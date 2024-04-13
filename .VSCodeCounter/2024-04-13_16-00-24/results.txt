@@ -1,0 +1,108 @@
+Date : 2024-04-13 16:00:24
+Directory : c:\Users\Lenovo\saitynams_fe
+Total : 59 files,  30912 codes, 116 comments, 493 blanks, all 31521 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          4 |     27,271 |          0 |          3 |     27,274 |
+| JavaScript |         45 |      3,198 |         92 |        408 |      3,698 |
+| CSS        |          1 |        212 |          1 |         37 |        250 |
+| Markdown   |          5 |        112 |          0 |         35 |        147 |
+| ApexLog    |          3 |        102 |          0 |          7 |        109 |
+| HTML       |          1 |         17 |         23 |          3 |         43 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                            |         59 |     30,912 |        116 |        493 |     31,521 |
+| react_register_form-main                                                                                     |         59 |     30,912 |        116 |        493 |     31,521 |
+| react_register_form-main (Files)                                                                             |          3 |     27,254 |          0 |         11 |     27,265 |
+| react_register_form-main\.VSCodeCounter                                                                      |          7 |        203 |          0 |         32 |        235 |
+| react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44                                                  |          7 |        203 |          0 |         32 |        235 |
+| react_register_form-main\public                                                                              |          3 |         45 |         23 |          5 |         73 |
+| react_register_form-main\src                                                                                 |         46 |      3,410 |         93 |        445 |      3,948 |
+| react_register_form-main\src (Files)                                                                         |          3 |        318 |          1 |         49 |        368 |
+| react_register_form-main\src\api                                                                             |          1 |         10 |          0 |          2 |         12 |
+| react_register_form-main\src\components                                                                      |         38 |      3,006 |         92 |        378 |      3,476 |
+| react_register_form-main\src\components (Files)                                                              |          1 |         76 |          0 |         10 |         86 |
+| react_register_form-main\src\components\Appointments                                                         |          6 |        549 |         13 |         73 |        635 |
+| react_register_form-main\src\components\Authorization                                                        |          5 |        519 |         11 |         68 |        598 |
+| react_register_form-main\src\components\Main                                                                 |          4 |         86 |          2 |         17 |        105 |
+| react_register_form-main\src\components\Notes                                                                |          5 |        317 |         20 |         45 |        382 |
+| react_register_form-main\src\components\Recommendations                                                      |          5 |        323 |         13 |         47 |        383 |
+| react_register_form-main\src\components\Tests                                                                |          4 |        480 |          7 |         39 |        526 |
+| react_register_form-main\src\components\Therapies                                                            |          5 |        462 |         25 |         62 |        549 |
+| react_register_form-main\src\components\Users                                                                |          3 |        194 |          1 |         17 |        212 |
+| react_register_form-main\src\context                                                                         |          1 |         11 |          0 |          4 |         15 |
+| react_register_form-main\src\hooks                                                                           |          3 |         65 |          0 |         12 |         77 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                     | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\details.md          | Markdown   |         50 |          0 |          6 |         56 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\diff-details.md     | Markdown   |          9 |          0 |          6 |         15 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\diff.md             | Markdown   |         12 |          0 |          7 |         19 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\diff.txt            | ApexLog    |         19 |          0 |          3 |         22 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\results.json        | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\results.md          | Markdown   |         32 |          0 |          7 |         39 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\.VSCodeCounter\2023-12-23_02-47-44\results.txt         | ApexLog    |         80 |          0 |          3 |         83 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\README.md                                              | Markdown   |          9 |          0 |          9 |         18 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\package-lock.json                                      | JSON       |     27,205 |          0 |          1 |     27,206 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\package.json                                           | JSON       |         40 |          0 |          1 |         41 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\public\index.html                                      | HTML       |         17 |         23 |          3 |         43 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\public\manifest.json                                   | JSON       |         25 |          0 |          1 |         26 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\public\robots.txt                                      | ApexLog    |          3 |          0 |          1 |          4 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\App.js                                             | JavaScript |         88 |          0 |         11 |         99 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\api\axios.js                                       | JavaScript |         10 |          0 |          2 |         12 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Appointments\AppointmentPage.js         | JavaScript |         47 |          1 |          8 |         56 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Appointments\Appointments.js            | JavaScript |        138 |          9 |         16 |        163 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Appointments\AppointmentsPage.js        | JavaScript |         13 |          0 |          3 |         16 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Appointments\CreateAppointment.js       | JavaScript |        114 |          3 |         16 |        133 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Appointments\EditAppointment.js         | JavaScript |        113 |          0 |         13 |        126 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Appointments\MyAppointments.js          | JavaScript |        124 |          0 |         17 |        141 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Authorization\Login.js                  | JavaScript |         91 |          3 |         14 |        108 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Authorization\Register.js               | JavaScript |        200 |          4 |         22 |        226 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Authorization\RegisterDoctor.js         | JavaScript |        197 |          4 |         24 |        225 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Authorization\RequireAuth.js            | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Authorization\Unauthorized.js           | JavaScript |         16 |          0 |          4 |         20 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Editor.js                               | JavaScript |         76 |          0 |         10 |         86 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Main\Home.js                            | JavaScript |         14 |          0 |          3 |         17 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Main\Layout.js                          | JavaScript |          9 |          0 |          2 |         11 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Main\Missing.js                         | JavaScript |         13 |          0 |          2 |         15 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Main\NavBar.js                          | JavaScript |         50 |          2 |         10 |         62 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Notes\CreateNote.js                     | JavaScript |         83 |         11 |         12 |        106 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Notes\EditNote.js                       | JavaScript |         79 |          2 |         13 |         94 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Notes\NotePage.js                       | JavaScript |         34 |          2 |          5 |         41 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Notes\Notes.js                          | JavaScript |        110 |          5 |         12 |        127 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Notes\NotesPage.js                      | JavaScript |         11 |          0 |          3 |         14 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Recommendations\CreateRecommendation.js | JavaScript |         64 |          9 |         12 |         85 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Recommendations\EditRecommendation.js   | JavaScript |         83 |          3 |         12 |         98 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Recommendations\RecommendationPage.js   | JavaScript |         37 |          1 |          5 |         43 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Recommendations\Recommendations.js      | JavaScript |        126 |          0 |         15 |        141 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Recommendations\RecommendationsPage.js  | JavaScript |         13 |          0 |          3 |         16 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Tests\NewTest.js                        | JavaScript |         76 |          4 |          7 |         87 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Tests\Tests.js                          | JavaScript |        135 |          0 |         16 |        151 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Tests\TestsPage.js                      | JavaScript |         77 |          3 |         14 |         94 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Tests\questionsData.js                  | JavaScript |        192 |          0 |          2 |        194 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Therapies\CreateTherapy.js              | JavaScript |        153 |         15 |         18 |        186 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Therapies\EditTherapy.js                | JavaScript |        132 |          2 |         19 |        153 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Therapies\Therapies.js                  | JavaScript |        125 |          7 |         16 |        148 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Therapies\TherapiesPage.js              | JavaScript |         11 |          0 |          3 |         14 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Therapies\TherapyPage.js                | JavaScript |         41 |          1 |          6 |         48 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Users\Admin.js                          | JavaScript |         13 |          0 |          2 |         15 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Users\Patients.js                       | JavaScript |         11 |          0 |          2 |         13 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\components\Users\Users.js                          | JavaScript |        170 |          1 |         13 |        184 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\context\AuthProvider.js                            | JavaScript |         11 |          0 |          4 |         15 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\hooks\UseAuth.js                                   | JavaScript |          6 |          0 |          2 |          8 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\hooks\UseAxiosPrivate.js                           | JavaScript |         37 |          0 |          7 |         44 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\hooks\userRefreshToken.js                          | JavaScript |         22 |          0 |          3 |         25 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\index.css                                          | CSS        |        212 |          1 |         37 |        250 |
+| c:\Users\Lenovo\saitynams_fe\react_register_form-main\src\index.js                                           | JavaScript |         18 |          0 |          1 |         19 |
+| Total                                                                                                        |            |     30,912 |        116 |        493 |     31,521 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import useAuth from "../../hooks/UseAuth";
-import questionsData from "./questionsData"; // Import questionsData
+import questionsData from "./questionsData";
+import RedirectModal from "../Modals/RedirectModal"; // Import the RedirectModal component
+import ErrorModal from "../Modals/ErrorModal"; // Import the ErrorModal component
 
 const NewTest = () => {
   const [formData, setFormData] = useState({});
   const [score, setScore] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
 
@@ -33,11 +37,12 @@ const NewTest = () => {
       // Send score to the API
       const response = await axiosPrivate.post("/tests", { score: totalScore });
       setSuccessMessage("Test created successfully!");
+      setShowSuccessMessage(true);
       // Clear form fields
       setFormData({});
     } catch (error) {
       console.error("Error creating test:", error);
-      // Update state to display error messages or handle errors appropriately
+      setErrorMessage("Failed to create test. Please try again.");
     }
   };
 
@@ -46,13 +51,12 @@ const NewTest = () => {
       <NavBar />
       <div className="form-container">
         <h2>New Test</h2>
-        {successMessage && (
-          <p className="success-message">{successMessage}</p>
-        )}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <ErrorModal show={errorMessage !== ""} onClose={() => setErrorMessage("")} message={errorMessage} />}
         <form onSubmit={handleSubmit}>
           {questionsData.map((question, questionIndex) => (
             <div className="form-group" key={questionIndex}>
-              <label>{question.question}</label>
+              <label>{question.question}</label><br />
               <div>
                 {question.options.map((option, optionIndex) => (
                   <div key={optionIndex}>
@@ -78,6 +82,7 @@ const NewTest = () => {
           </button>
         </form>
         {score !== null && <p>Score: {score}</p>}
+        <RedirectModal show={showSuccessMessage} onClose={() => setShowSuccessMessage(false)} message={successMessage} destination="/tests" />
       </div>
     </section>
   );

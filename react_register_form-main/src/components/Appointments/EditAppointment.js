@@ -78,7 +78,7 @@ const EditAppointment = () => {
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="date">Date:</label>
+            <label htmlFor="date">Date:</label><br />
             <input
               type="date"
               id="date"
@@ -90,7 +90,7 @@ const EditAppointment = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="time">Time:</label>
+            <label htmlFor="time">Time:</label><br />
             <input
               type="time"
               id="time"
@@ -103,7 +103,7 @@ const EditAppointment = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="price">Price:</label>
+            <label htmlFor="price">Price:</label><br />
             <input
               type="number"
               id="price"

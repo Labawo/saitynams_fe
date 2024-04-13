@@ -107,7 +107,7 @@ const EditTherapy = () => {
         {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name:</label><br />
             <input
               type="text"
               id="name"
@@ -119,7 +119,7 @@ const EditTherapy = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="description">Description:</label><br />
             <textarea
               id="description"
               name="description"
@@ -130,7 +130,7 @@ const EditTherapy = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="image">Image:</label>
+            <label htmlFor="image">Image:</label><br />
             <input
               type="file"
               id="image"

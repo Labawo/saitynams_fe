@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import useAuth from "../../hooks/UseAuth";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const CreateTherapy = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     doctorId: "",
-    image: null, // New field for image
+    image: null,
   });
 
   const [doctors, setDoctors] = useState([]);
@@ -20,6 +20,7 @@ const CreateTherapy = () => {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (canAccessAdmin) {
@@ -29,7 +30,6 @@ const CreateTherapy = () => {
           setDoctors(response.data);
         } catch (error) {
           console.error("Error fetching doctors:", error);
-          // Handle error
         }
       };
 
@@ -88,6 +88,7 @@ const CreateTherapy = () => {
       // Handle API call errors
       console.error("Error creating therapy:", error);
       // Update state to display error messages or handle errors appropriately
+      setErrorMessage("Failed to create therapy. Please try again.");
     }
   };  
   
@@ -110,10 +111,9 @@ const CreateTherapy = () => {
       <NavBar />
       <div className="form-container">
         <h2>Create New Therapy</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name:</label><br />
             <input
               type="text"
               id="name"
@@ -127,7 +127,7 @@ const CreateTherapy = () => {
             {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="description">Description:</label><br/>
             <textarea
               id="description"
               name="description"
@@ -143,7 +143,7 @@ const CreateTherapy = () => {
           </div>
           {canAccessAdmin && ( // Show the dropdown only if the user is an admin
             <div className="form-group">
-              <label htmlFor="doctorId">Doctor:</label>
+              <label htmlFor="doctorId">Doctor:</label><br />
               <select
                 id="doctorId"
                 name="doctorId"
@@ -162,7 +162,7 @@ const CreateTherapy = () => {
             </div>
           )}
           <div className="form-group">
-            <label htmlFor="image">Image:</label>
+            <label htmlFor="image">Image:</label><br />
             <input
               type="file"
               id="image"
@@ -178,6 +178,18 @@ const CreateTherapy = () => {
           </button>
         </form>
       </div>
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Therapy List"
+        destination="/therapies"
+      />
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };
