@@ -17,6 +17,11 @@ body {
     background-color: black;
 }
 
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -145,6 +150,11 @@ li {
     cursor: pointer;
 }
 
+.menu-icon:hover {
+    background-color: black;
+    color: white;
+}
+
 .navbar-links {
     display: flex;
     flex-direction: column;
@@ -158,6 +168,18 @@ li {
     z-index: 10;
     border: 1px solid #ccc; /* Add border for styling */
     padding: 5px;
+    border-radius: 5px;
+}
+
+.nav-link {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherit color from parent */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.nav-link:hover {
+    background-color: black; /* Background color on hover */
+    color: white; /* Text color on hover */
 }
 
 .hidden {
@@ -173,12 +195,18 @@ li {
     background-color: red;
     margin-top: 0;
     font-size: 15px;
+    cursor: pointer;
 }
 
-@media screen and (max-width: 768px) { /* Adjust the max-width according to your preference */
-    section {
-        max-width: 100%;
-    }
+.logout-btn {
+    background-color: red;
+    margin-top: 0;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.logout-btn:hover{
+    background-color: rgb(190, 2, 2);
 }
 
 .table-container h2{
@@ -249,5 +277,63 @@ li {
     text-align: left;
 }
 
+.create-button-v1, .table-buttons-blue  {
+    background-color: #3066be;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
 
-  
+.table-buttons-red  {
+    background-color: #F44336;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+.table-buttons-green  {
+    background-color: #75975e;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.table-buttons-gold  {
+    background-color: #FFD700;
+    border: none;
+    cursor: pointer;
+}
+
+.create-button-v1  {
+    float: right;
+}
+
+.load-button-v1 {
+    margin-left: 45%;
+}
+
+.no-list-items-p {
+    margin-top: 10%;
+}
+
+.test-score-p {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) { /* Adjust the max-width according to your preference */
+    section {
+        max-width: 100%;
+    }
+
+    .load-button-v1 {
+        margin-left: 0;
+    }
+
+    .no-list-items-p {
+        margin-top: 40%;
+    }
+}

@@ -132,13 +132,13 @@ const Users = () => {
                                     <td>{user?.email}</td>
                                     <td>
                                         <button
-                                            className="table_buttons"
+                                            className="table-buttons-red"
                                             onClick={() => deleteUser(user.id)}
                                         >
                                             <FontAwesomeIcon icon={faTrash} />
                                         </button>
                                         <button
-                                            className="table_buttons"
+                                            className="table-buttons-gold"
                                             onClick={() => {
                                                 setSelectedUserId(user.id);
                                                 setShowResetPassword({ ...showResetPassword, [user.id]: !showResetPassword[user.id] }); // Toggle visibility of reset password div
@@ -161,7 +161,7 @@ const Users = () => {
                                                     placeholder="Repeat Password"
                                                 /> <br />
                                                 <button
-                                                    className="table_buttons"
+                                                    className="table-buttons-blue"
                                                     onClick={resetPassword}
                                                 >
                                                     Submit

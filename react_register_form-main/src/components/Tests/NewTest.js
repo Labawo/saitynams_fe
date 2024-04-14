@@ -6,13 +6,17 @@ import useAuth from "../../hooks/UseAuth";
 import questionsData from "./questionsData";
 import RedirectModal from "../Modals/RedirectModal"; // Import the RedirectModal component
 import ErrorModal from "../Modals/ErrorModal"; // Import the ErrorModal component
+import "./TestStyle.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const NewTest = () => {
   const [formData, setFormData] = useState({});
   const [score, setScore] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [answers, setAnswers] = useState(Array(questionsData.length).fill(null));
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
@@ -28,9 +32,8 @@ const NewTest = () => {
           const currentDate = new Date();
           const differenceInDays = Math.floor((currentDate - latestTestDate) / (1000 * 60 * 60 * 24));
           if (differenceInDays < 7) {
-            // If latest test was done less than 7 days ago, redirect to previous page
             navigate(-1);
-            return; // Added return to exit early after navigation
+            return;
           }
         }
       } catch (error) {
@@ -41,48 +44,75 @@ const NewTest = () => {
     fetchUserTests();
   }, [axiosPrivate, navigate]);
 
+  useEffect(() => {
+    // If there are previous answers, update the form data with them
+    if (answers[currentPage]) {
+      setFormData(answers[currentPage]);
+    } else {
+      setFormData({});
+    }
+  }, [currentPage, answers]);
+
   const handleInputChange = (questionIndex, optionIndex) => {
-    return () => {
-      const newFormData = { ...formData };
-      newFormData[questionIndex] = optionIndex;
-      setFormData(newFormData);
-    };
+    const newFormData = { ...formData, [questionIndex]: optionIndex };
+    setFormData(newFormData);
+    const newAnswers = [...answers];
+    newAnswers[currentPage] = newFormData;
+    setAnswers(newAnswers);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Calculate score based on selected options
+      // Check if all questions are answered
+      const isAllAnswered = answers.every(answer => answer !== null);
+  
+      if (!isAllAnswered) {
+        setErrorMessage("Please answer all questions before submitting.");
+        return;
+      }
+  
       let totalScore = 0;
-      for (const questionIndex in formData) {
-        const optionIndex = formData[questionIndex];
-        totalScore += questionsData[questionIndex].options[optionIndex].points;
+      for (let i = 0; i < answers.length; i++) {
+        const answer = answers[i];
+        if (answer) {
+          for (const [questionIndex, optionIndex] of Object.entries(answer)) {
+            totalScore += questionsData[questionIndex].options[optionIndex].points;
+          }
+        }
       }
       setScore(totalScore);
-
-      // Send score to the API
+  
       const response = await axiosPrivate.post("/tests", { score: totalScore });
       setSuccessMessage("Test created successfully!");
-      setShowSuccessMessage(true);
-      // Clear form fields
       setFormData({});
     } catch (error) {
       console.error("Error creating test:", error);
       setErrorMessage("Failed to create test. Please try again.");
     }
   };
+  
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(questionsData.length / 3) - 1) {
+      setCurrentPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage(prevPage => Math.max(prevPage - 1, 0));
+  };
 
   return (
     <section>
       <NavBar />
       <div className="form-container">
-        <h2>New Test</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
+        <h2>BDI Test</h2>
         {errorMessage && <ErrorModal show={errorMessage !== ""} onClose={() => setErrorMessage("")} message={errorMessage} />}
-        <form onSubmit={handleSubmit}>
-          {questionsData.map((question, questionIndex) => (
+        <form onSubmit={handleSubmit} className="test-form">
+          {questionsData.slice(currentPage * 3, currentPage * 3 + 3).map((question, questionIndex) => (
             <div className="form-group" key={questionIndex}>
-              <label>{question.question}</label><br />
+              <label className="test-label">{question.question}</label><br />
               <div>
                 {question.options.map((option, optionIndex) => (
                   <div key={optionIndex}>
@@ -92,7 +122,7 @@ const NewTest = () => {
                         name={`question${questionIndex}`}
                         value={optionIndex}
                         checked={formData[questionIndex] === optionIndex}
-                        onChange={handleInputChange(questionIndex, optionIndex)}
+                        onChange={() => handleInputChange(questionIndex, optionIndex)}
                         required
                       />
                       {option.text}
@@ -103,12 +133,29 @@ const NewTest = () => {
               </div>
             </div>
           ))}
-          <button type="submit" className="submit-button">
+          <div className="pagination-buttons">
+            {currentPage > 0 && (
+              <button type="button" className="previous-button" onClick={handlePrevPage}>
+                <FontAwesomeIcon icon={faAngleLeft} />
+              </button>
+            )}
+            {currentPage < Math.ceil(questionsData.length / 3) - 1 && (
+              <button type="button" className="next-button" onClick={handleNextPage}>
+                <FontAwesomeIcon icon={faAngleRight} />
+              </button>
+            )}
+          </div>
+          <button type="submit" className="submit-button-test" style={{ display: answers.every(answer => answer !== null) ? 'block' : 'none' }}>
             Submit Test
           </button>
         </form>
-        {score !== null && <p>Score: {score}</p>}
-        <RedirectModal show={showSuccessMessage} onClose={() => setShowSuccessMessage(false)} message={successMessage} destination="/tests" />
+        <RedirectModal 
+          show={successMessage !== ""} 
+          onClose={() => setSuccessMessage("")} 
+          message={successMessage} 
+          buttonText="Go to tests"
+          score={score}
+          destination="/tests" />
       </div>
     </section>
   );

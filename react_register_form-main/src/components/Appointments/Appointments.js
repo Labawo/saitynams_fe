@@ -105,7 +105,7 @@ const Appointments = () => {
             <div className="table-container">
                 <h2 className="list-headers">Appointments List</h2>
                 {canEditDelete && (
-                    <button onClick={createAppointment} className="create-button-v1"> + </button>
+                    <button onClick={createAppointment} className="create-button-v1"> Create Appointment </button>
                 )}
                 {appointments.length ? (
                     <table className="my-table">
@@ -125,7 +125,7 @@ const Appointments = () => {
                                     <td>
                                         {canSelectAppointment && (
                                             <button 
-                                                className="table_buttons_green"
+                                                className="table-buttons-green"
                                                 onClick={() => selectAppointment(appointment.id)}
                                             >
                                                 <FontAwesomeIcon icon={faCheck} />
@@ -134,19 +134,19 @@ const Appointments = () => {
                                         {canEditDelete && (
                                             <>
                                                 <button 
-                                                    className="table_buttons_blue"
+                                                    className="table-buttons-blue"
                                                     onClick={() => handleInspect(appointment.id)}
                                                 >
                                                     <FontAwesomeIcon icon={faSearch} />
                                                 </button>
                                                 <button 
-                                                    className="table_buttons_blue"
+                                                    className="table-buttons-blue"
                                                     onClick={() => updateAppointment(appointment.id)}
                                                 >
                                                     <FontAwesomeIcon icon={faEdit} />
                                                 </button>
                                                 <button
-                                                    className="table_buttons"
+                                                    className="table-buttons-red"
                                                     onClick={() => deleteAppointment(appointment.id)} // Invoke deleteAppointment on click
                                                 >
                                                     <FontAwesomeIcon icon={faTrash} />
@@ -159,7 +159,7 @@ const Appointments = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No appointments to display</p>
+                    <p className="no-list-items-p">No appointments to display</p>
                 )}
             </div>
             {/* Error Modal */}

@@ -64,6 +64,8 @@ const AppointmentsPage = () => {
             <NavBar />
             <div className="table-container">
                 <h2>My Appointments List</h2>
+                <br />
+                <br />
                 {appointments.length ? (
                     <table className="my-table">
                         <thead>
@@ -83,7 +85,7 @@ const AppointmentsPage = () => {
                                     <td>{appointment?.doctorName}</td>
                                     <td>
                                         <button 
-                                            className="table_buttons_blue"
+                                            className="table-buttons-blue"
                                             onClick={() => handleInspect(appointment.id)}
                                         >
                                             <FontAwesomeIcon icon={faSearch} />
@@ -105,12 +107,16 @@ const AppointmentsPage = () => {
                             <h3>Recommendations</h3>
                             <table className="recommendations-table">
                                 <thead>
-                                    <tr>
+                                {recommendations.length === 0 ? (
+                                        null
+                                    ) : (<tr>
                                         <th>Description</th>
                                         <th>Date</th>
                                         <th>Time</th>
                                     </tr>
+                                )}
                                 </thead>
+                                    
                                 <tbody>
                                     {recommendations.length === 0 ? (
                                         <tr>

@@ -87,22 +87,21 @@ const Therapies = () => {
             <div className="table-container">
                 <h2 className="list-headers">Therapies List</h2>
                 {canAccessDoctor && (
-                    <button onClick={createTherapy} className="create-button-v1"> + </button>
+                    <button onClick={createTherapy} className="create-button-v1"> Create Therapy </button>
                 )}
                 {therapies.length ? (
                     <table className="my-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Description</th>
+                                <th>Doctor</th>
                             </tr>
                         </thead>
                         <tbody>
                             {therapies.map((therapy, i) => (
                                 <tr key={i}>
                                     <td>{therapy?.name}</td>
-                                    <td>{therapy?.description}</td>
-                                    <td>{therapy.doctorId === auth.id ? "true" : "false"}</td>
+                                    <td>{therapy?.do}</td>
                                     <td>
                                         <button 
                                             className="table-buttons-blue"
@@ -132,7 +131,7 @@ const Therapies = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No therapies to display</p>
+                    <p className="no-list-items-p">No therapies to display</p>
                 )}
                 {isLoading ? (
                     <p>Loading...</p>

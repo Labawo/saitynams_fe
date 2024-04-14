@@ -46,12 +46,12 @@ const NavBar = () => {
                 <div className="navbar-links">
                     <Link to="/" className='nav-link white-bg'>Home</Link>
                     <Link to="/therapies" className='nav-link white-bg'>Therapies</Link>
-                    <Link to="/editor" className={canAccessDoctor ? 'nav-link white-bg' : 'hidden'}>Weekly Appointments</Link>
-                    <Link to="/admin" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Admin</Link>
-                    <Link to="/registerDoctor" className={canAccessAdmin ? 'nav-link white-bg' : 'hidden'}>Register Doctor</Link>
-                    <Link to="/myAppointments" className={canAccessPatient ? 'nav-link white-bg' : 'hidden'}>My Appointments</Link>
-                    <Link to="/notes" className={canAccessPatient ? 'nav-link white-bg' : 'hidden'}>Notes</Link>
-                    <Link to="/tests" className={canAccessPatient ? 'nav-link white-bg' : 'hidden'}>Tests</Link>
+                    <Link to="/editor" className={canAccessDoctor ? 'nav-link' : 'hidden'}>Weekly Appointments</Link>
+                    <Link to="/admin" className={canAccessAdmin ? 'nav-link' : 'hidden'}>Admin</Link>
+                    <Link to="/registerDoctor" className={canAccessAdmin ? 'nav-link' : 'hidden'}>Register Doctor</Link>
+                    <Link to="/myAppointments" className={canAccessPatient ? 'nav-link' : 'hidden'}>My Appointments</Link>
+                    <Link to="/notes" className={canAccessPatient ? 'nav-link' : 'hidden'}>Notes</Link>
+                    <Link to="/tests" className={canAccessPatient ? 'nav-link' : 'hidden'}>Tests</Link>
                 </div>
             )}           
         </nav>

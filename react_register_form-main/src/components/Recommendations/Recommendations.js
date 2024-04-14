@@ -84,7 +84,7 @@ const Recommendations = () => {
             <div className="table-container">
                 <h2 className="list-headers">Recommendations List</h2>
                 {canEditDelete && (
-                    <button onClick={createRecommendation} className="create-button-v1"> + </button>
+                    <button onClick={createRecommendation} className="create-button-v1"> Create Recommendation </button>
                 )}
                 {recommendations.length ? (
                     <table className="my-table">
@@ -105,19 +105,19 @@ const Recommendations = () => {
                                         {canEditDelete && (
                                             <>
                                                 <button
-                                                    className="table_buttons_blue"
+                                                    className="table-buttons-blue"
                                                     onClick={() => handleInspect(recommendation.id)}
                                                 >
                                                     <FontAwesomeIcon icon={faSearch} />
                                                 </button>
                                                 <button
-                                                    className="table_buttons_blue"
+                                                    className="table-buttons-blue"
                                                     onClick={() => updateRecommendation(recommendation.id)}
                                                 >
                                                     <FontAwesomeIcon icon={faEdit} />
                                                 </button>
                                                 <button
-                                                    className="table_buttons"
+                                                    className="table-buttons-red"
                                                     onClick={() => deleteRecommendation(recommendation.id)}
                                                 >
                                                     <FontAwesomeIcon icon={faTrash} />
@@ -130,7 +130,7 @@ const Recommendations = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No recommendations to display</p>
+                    <p className="no-list-items-p">No recommendations to display</p>
                 )}
             </div>
         </article>

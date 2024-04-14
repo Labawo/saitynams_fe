@@ -72,7 +72,7 @@ const Notes = () => {
         <article className="notes-container">
             <div className="table-container">
                 <h2 className="list-headers">Notes List</h2>
-                <button onClick={createNote} className="create-button-v1"> + </button>
+                <button onClick={createNote} className="create-button-v1"> New Note </button>
                 {notes.length ? (
                     <table className="my-table">
                         <thead>
@@ -111,7 +111,7 @@ const Notes = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No notes to display</p>
+                    <p className="no-list-items-p">No notes to display</p>
                 )}
                 {isLoading ? (
                     <p>Loading...</p>

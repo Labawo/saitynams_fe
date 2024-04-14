@@ -87,7 +87,7 @@ const Editor = () => {
                                     <td>{appointment?.time.split('T')[0]}</td>
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
                                     <td>
-                                        <button className="table_buttons" onClick={() => handleDeleteAppointment(appointment.id)}>
+                                        <button className="table-buttons-red" onClick={() => handleDeleteAppointment(appointment.id)}>
                                             <FontAwesomeIcon icon={faTrash} />
                                         </button>
                                     </td>

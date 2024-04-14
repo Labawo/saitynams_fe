@@ -89,6 +89,28 @@ const Tests = () => {
         setSelectedPatientId(newPatientId);
     }; 
 
+    // Calculate average score and display corresponding message
+    const calculateAverageScoreMessage = () => {
+        if (tests.length === 0) return null;
+
+        const totalScore = tests.reduce((acc, test) => acc + test.score, 0);
+        const averageScore = totalScore / tests.length;
+
+        if (averageScore <= 10) {
+            return "1-10: These ups and downs are considered normal";
+        } else if (averageScore <= 16) {
+            return "11-16: Mild mood disturbance";
+        } else if (averageScore <= 20) {
+            return "17-20: Borderline clinical depression";
+        } else if (averageScore <= 30) {
+            return "21-30: Moderate depression";
+        } else if (averageScore <= 40) {
+            return "31-40: Severe depression";
+        } else {
+            return "over 40: Extreme depression";
+        }
+    };
+
     return (
         <article className="tests-container">
             {isAdmin && patients.length > 0 && ( // Render patient selection only if user is admin and patients data is available
@@ -105,6 +127,12 @@ const Tests = () => {
                 </div>
             )}
             <div className="table-container">
+                {tests.length > 0 && (
+                    <div>
+                        <h2>Average Score Analysis:</h2>
+                        <p className="test-score-p">{calculateAverageScoreMessage()}</p>
+                    </div>
+                )}
                 <h2 className="list-headers">BDI Tests</h2>
                 {tests.length ? (
                     <table className="my-table">
@@ -135,7 +163,7 @@ const Tests = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No tests to display</p>
+                    <p className="no-list-items-p">No tests to display</p>
                 )}
                 {isLoading ? (
                     <p>Loading...</p>
