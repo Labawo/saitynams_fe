@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import { useParams, useNavigate } from "react-router-dom";
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const EditRecommendation = () => {
-
   const { therapyId, appointmentId, recommendationId } = useParams();
   const navigate = useNavigate();
 
@@ -14,8 +15,8 @@ const EditRecommendation = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const handleInputChange = (e) => {
@@ -38,9 +39,10 @@ const EditRecommendation = () => {
     e.preventDefault();
     try {
       const response = await axiosPrivate.put(`/therapies/${therapyId}/appointments/${appointmentId}/recommendations/${recommendationId}`, formData);
-      setSuccessMessage("Appointment updated successfully!");
+      setSuccessMessage("Recommendation updated successfully!");
     } catch (error) {
-      console.error("Error updating appointment:", error);
+      console.error("Error updating recommendation:", error);
+      setErrorMessage("Failed to update recommendation. Please try again.");
     }
   };
 
@@ -53,24 +55,25 @@ const EditRecommendation = () => {
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching recommendation:", error);
-        if (error.response && error.response.status === 403) {
+        if (error.response && error.response.status === 404) {
+          navigate(-1);
+        } else if (error.response && error.response.status === 403) {
           navigate("/therapies"); // Redirect to unauthorized page
         }
       }
     };
     fetchRecommendationData();
-    }, [axiosPrivate, therapyId, appointmentId, recommendationId, navigate]);
+  }, [axiosPrivate, therapyId, appointmentId, recommendationId, navigate]);
 
-    if (isLoading) {
-        return <p>Loading...</p>;
-      }
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <section>
       <NavBar />
       <div className="form-container">
         <h2>Edit recommendation</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="description">Description:</label><br />
@@ -82,15 +85,26 @@ const EditRecommendation = () => {
               required
               className="textarea-field"
             />
-            {errors.description && (
-              <span className="error-message">{errors.description}</span>
-            )}
           </div>
           <button type="submit" className="submit-button">
             Update
           </button>
         </form>
       </div>
+      {/* Success Modal */}
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Recommendations List"
+        destination={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}
+      />
+      {/* Error Modal */}
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };

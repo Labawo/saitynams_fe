@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const EditNote = () => {
   const { noteId } = useParams(); // Get the noteId from the URL params
@@ -15,6 +17,7 @@ const EditNote = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchNoteData = async () => {
@@ -25,7 +28,9 @@ const EditNote = () => {
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching note:", error);
-        if (error.response && error.response.status === 403) {
+        if (error.response && error.response.status === 404) {
+          navigate(-1);
+        } else if (error.response && error.response.status === 403) {
           navigate("/notes"); // Redirect to notes page if unauthorized
         }
       }
@@ -56,22 +61,18 @@ const EditNote = () => {
       setSuccessMessage("Note updated successfully!");
     } catch (error) {
       console.error("Error updating note:", error);
+      setErrorMessage("Failed to update note. Please try again.");
     }
   };
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <section>
       <NavBar />
       <div className="form-container">
         <h2>Edit Note</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="content">Content:</label>
+            <label htmlFor="content">Content:</label><br />
             <textarea
               id="content"
               name="content"
@@ -86,6 +87,18 @@ const EditNote = () => {
           </button>
         </form>
       </div>
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Notes List"
+        destination="/notes"
+      />
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };

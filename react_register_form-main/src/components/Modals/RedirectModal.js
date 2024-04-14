@@ -6,7 +6,7 @@ const RedirectModal = ({ show, message, buttonText, destination }) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate(destination);
+    navigate(-1);
   };
 
   return (

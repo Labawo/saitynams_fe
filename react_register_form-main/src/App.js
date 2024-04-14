@@ -3,9 +3,8 @@ import RegisterDoctor from './components/Authorization/RegisterDoctor';
 import Login from './components/Authorization/Login';
 import Home from './components/Main/Home';
 import Layout from './components/Main/Layout';
-import Editor from './components/Editor';
+import Editor from './components/Appointments/Editor';
 import Admin from './components/Users/Admin';
-import Patients from './components/Users/Patients';
 import Missing from './components/Main/Missing';
 import Unauthorized from './components/Authorization/Unauthorized';
 import TherapiesPage from './components/Therapies/TherapiesPage';
@@ -76,7 +75,6 @@ function App() {
           <Route path="/therapies/:therapyId/appointments/:appointmentId/editAppointment" element={<EditAppointment />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/createRecommendation" element={<CreateRecommendation />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId/recommendations/:recommendationId/editRecommendation" element={<EditRecommendation />} />
-          <Route path="/patients" element={<Patients />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>

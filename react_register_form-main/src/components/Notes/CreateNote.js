@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import useAuth from "../../hooks/UseAuth";
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const CreateNote = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,7 @@ const CreateNote = () => {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
@@ -54,6 +57,7 @@ const CreateNote = () => {
       // Handle API call errors
       console.error("Error creating note:", error);
       // Update state to display error messages or handle errors appropriately
+      setErrorMessage("Failed to create note. Please try again.");
     }
   };  
 
@@ -62,10 +66,9 @@ const CreateNote = () => {
       <NavBar />
       <div className="form-container">
         <h2>Create New Note</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Title:</label>
+            <label htmlFor="name">Title:</label><br />
             <input
               type="text"
               id="name"
@@ -79,7 +82,7 @@ const CreateNote = () => {
             {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="content">Content:</label>
+            <label htmlFor="content">Content:</label><br />
             <textarea
               id="content"
               name="content"
@@ -98,6 +101,18 @@ const CreateNote = () => {
           </button>
         </form>
       </div>
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Notes List"
+        destination="/notes"
+      />
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };

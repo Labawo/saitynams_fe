@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 //import "./NotePage.css"; // Import a CSS file for styling (create NotePage.css in the same directory)
@@ -8,6 +8,8 @@ const NotePage = () => {
     const { noteId } = useParams(); // Get the noteId from the URL params
     const [note, setNote] = useState(null);
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const fetchNote = async () => {
             try {
@@ -16,6 +18,9 @@ const NotePage = () => {
             } catch (error) {
                 console.error(error);
                 // Handle error, e.g., show a message or navigate to an error page
+                if (error.response && error.response.status === 404) {
+                    navigate(-1);
+                }
             }
         };
 

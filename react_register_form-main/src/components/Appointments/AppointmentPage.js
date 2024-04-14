@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import useAuth from "../../hooks/UseAuth";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const AppointmentPage = () => {
     const { therapyId, appointmentId } = useParams(); // Get the therapyId from the URL params
     const [appointment, setAppointment] = useState(null);
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
 
     const { auth } = useAuth();
 
@@ -24,6 +23,9 @@ const AppointmentPage = () => {
             } catch (error) {
                 console.error(error);
                 // Handle error, e.g., show a message or navigate to an error page
+                if (error.response && error.response.status === 404) {
+                    navigate(-1);
+                }
             }
         };
 

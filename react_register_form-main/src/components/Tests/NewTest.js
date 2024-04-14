@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import useAuth from "../../hooks/UseAuth";
@@ -13,7 +14,32 @@ const NewTest = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const axiosPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserTests = async () => {
+      try {
+        const response = await axiosPrivate.get('/tests', {
+          params: { pageNumber: 1, patientId: null },
+        });
+        const tests = response.data;
+        if (tests.length > 0) {
+          const latestTestDate = new Date(tests[0].time);
+          const currentDate = new Date();
+          const differenceInDays = Math.floor((currentDate - latestTestDate) / (1000 * 60 * 60 * 24));
+          if (differenceInDays < 7) {
+            // If latest test was done less than 7 days ago, redirect to previous page
+            navigate(-1);
+            return; // Added return to exit early after navigation
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user tests:", error);
+      }
+    };
+  
+    fetchUserTests();
+  }, [axiosPrivate, navigate]);
 
   const handleInputChange = (questionIndex, optionIndex) => {
     return () => {

@@ -1,16 +1,19 @@
-import { useState, useEffect } from "react";
-import NavBar from "./Main/NavBar";
-import useAxiosPrivate from "./../hooks/UseAxiosPrivate";
+import React, { useState, useEffect } from "react";
+import NavBar from "./../Main/NavBar";
+import useAxiosPrivate from "./../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Editor = () => {
     const [appointments, setAppointments] = useState([]);
+    const [startDate, setStartDate] = useState("");
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
     
+    // Set end date to 7 days after the start date
+    const endDate = startDate ? new Date(new Date(startDate).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : "";
 
     useEffect(() => {
         let isMounted = true;
@@ -47,21 +50,39 @@ const Editor = () => {
         }
     };
 
+    const filteredAppointments = appointments.filter(appointment => {
+        if (startDate) {
+            const appointmentDate = new Date(appointment.time.split('T')[0]);
+            return appointmentDate >= new Date(startDate) && appointmentDate <= new Date(endDate);
+        }
+        return true;
+    });
+
     return (
         <section>
             <NavBar />
             <div className="table-container">
                 <h2>My Appointments List</h2>
-                {appointments.length ? (
+                <div className="filter-container">
+                    <label htmlFor="startDate">Start Date:</label>
+                    <input 
+                        type="date" 
+                        id="startDate" 
+                        value={startDate} 
+                        onChange={(e) => setStartDate(e.target.value)} 
+                    />
+                </div>
+                {filteredAppointments.length ? (
                     <table className="my-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
                                 <th>Time</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {appointments.map((appointment, i) => (
+                            {filteredAppointments.map((appointment, i) => (
                                 <tr key={i}>
                                     <td>{appointment?.time.split('T')[0]}</td>
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>

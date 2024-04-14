@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import { useParams } from "react-router-dom";
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const CreateRecommendation = () => {
-
   const { therapyId, appointmentId } = useParams();
 
   const [formData, setFormData] = useState({
@@ -13,8 +14,8 @@ const CreateRecommendation = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +47,8 @@ const CreateRecommendation = () => {
       setFormData({ description: "" });
     } catch (error) {
       // Handle API call errors
-      console.error("Error creating therapy:", error);
+      console.error("Error creating recommendation:", error);
+      setErrorMessage("Failed to create recommendation. Please try again.");
       // Update state to display error messages or handle errors appropriately
     }
   };
@@ -56,7 +58,6 @@ const CreateRecommendation = () => {
       <NavBar />
       <div className="form-container">
         <h2>Create new recommendation</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="description">Description:</label><br />
@@ -69,15 +70,26 @@ const CreateRecommendation = () => {
               required
               className="textarea-field"
             />
-            {errors.description && (
-              <span className="error-message">{errors.description}</span>
-            )}
           </div>
           <button type="submit" className="submit-button">
             Create
           </button>
         </form>
       </div>
+      {/* Success Modal */}
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Recommendations List"
+        destination={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}
+      />
+      {/* Error Modal */}
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };

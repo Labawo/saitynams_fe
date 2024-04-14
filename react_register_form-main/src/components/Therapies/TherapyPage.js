@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 
@@ -7,6 +7,7 @@ const TherapyPage = () => {
     const { therapyId } = useParams(); // Get the therapyId from the URL params
     const [therapy, setTherapy] = useState(null);
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTherapy = async () => {
@@ -16,6 +17,9 @@ const TherapyPage = () => {
             } catch (error) {
                 console.error(error);
                 // Handle error, e.g., show a message or navigate to an error page
+                if (error.response && error.response.status === 404) {
+                    navigate(-1);
+                }
             }
         };
 

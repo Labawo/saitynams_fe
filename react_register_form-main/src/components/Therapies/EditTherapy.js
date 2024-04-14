@@ -2,34 +2,38 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const EditTherapy = () => {
-  const { therapyId } = useParams(); // Get the therapyId from the URL params
+  const { therapyId } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    imageData: null, // New field for image
+    imageData: null,
   });
 
   const axiosPrivate = useAxiosPrivate();
 
   const [isLoading, setIsLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchTherapyData = async () => {
       try {
         const response = await axiosPrivate.get(`/therapies/${therapyId}`);
         const { name, description, imageData } = response.data.resource;
-        setFormData({ name, description, imageData }); // Set the image data from the response
+        setFormData({ name, description, imageData });
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching therapy:", error);
-        if (error.response && error.response.status === 403) {
-          // Unauthorized error, redirect to unauthorized page
-          navigate("/therapies"); // Replace "/unauthorized" with your unauthorized page route
+        if (error.response && error.response.status === 404) {
+          navigate(-1);
+        } else if (error.response && error.response.status === 403) {
+          navigate("/therapies");
         }
       }
     };
@@ -48,11 +52,11 @@ const EditTherapy = () => {
       reader.onloadend = () => {
         setFormData({
           ...formData,
-          imageData: reader.result, // Convert image to base64 string and set it in formData
+          imageData: reader.result,
         });
       };
       
-      reader.readAsDataURL(file); // Read the image file as a data URL
+      reader.readAsDataURL(file);
     } else {
       setFormData({
         ...formData,
@@ -68,9 +72,8 @@ const EditTherapy = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let formDataToSend = { ...formData }; // Copy the formData to prevent modifying the original state
+      let formDataToSend = { ...formData };
       
-      // If imageData is a File object, convert it to base64 string
       if (formDataToSend.imageData instanceof File) {
         const imageDataBase64 = await readFileAsBase64(formDataToSend.imageData);
         formDataToSend = {
@@ -83,6 +86,7 @@ const EditTherapy = () => {
       setSuccessMessage("Therapy updated successfully!");
     } catch (error) {
       console.error("Error updating therapy:", error);
+      setErrorMessage("Failed to update therapy. Please try again.");
     }
   };
 
@@ -96,7 +100,7 @@ const EditTherapy = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>; // Render loading indicator while fetching data
+    return <p>Loading...</p>;
   }
 
   return (
@@ -104,7 +108,6 @@ const EditTherapy = () => {
       <NavBar />
       <div className="form-container">
         <h2>Edit Therapy</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label><br />
@@ -145,6 +148,19 @@ const EditTherapy = () => {
           </button>
         </form>
       </div>
+      {/* Error Modal */}
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Therapy List"
+        destination="/therapies"
+      />
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };

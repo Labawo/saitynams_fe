@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 
@@ -7,9 +7,10 @@ const RecommendationPage = () => {
     const { therapyId, appointmentId, recommendationId } = useParams(); // Get the therapyId from the URL params
     const [recommendation, setRecommendation] = useState(null);
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchTherapy = async () => {
+        const fetchRecommendation = async () => {
             try {
                 const response = await axiosPrivate.get(`/therapies/${therapyId}/appointments/${appointmentId}/recommendations/${recommendationId}`);
                 setRecommendation(response.data);
@@ -17,10 +18,13 @@ const RecommendationPage = () => {
             } catch (error) {
                 console.error(error);
                 // Handle error, e.g., show a message or navigate to an error page
+                if (error.response && error.response.status === 404) {
+                    navigate(-1);
+                }
             }
         };
 
-        fetchTherapy();
+        fetchRecommendation();
     }, [axiosPrivate, therapyId, appointmentId, recommendationId]);
 
     return (

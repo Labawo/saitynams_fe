@@ -4,6 +4,7 @@ import { useNavigate, useLocation, useParams  } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSearch, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
+import ErrorModal from "../Modals/ErrorModal";
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
@@ -12,6 +13,7 @@ const Appointments = () => {
     const location = useLocation();
     const { auth } = useAuth();
     const { therapyId } = useParams();
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleInspect = (appintmentId) => {
         // Navigate to the InspectPage with the therapyId parameter
@@ -89,6 +91,10 @@ const Appointments = () => {
           } catch (error) {
               console.error(`Error selecting appointment ${appointmentId}:`, error);
               // Handle selection error (e.g., show error message)
+              if (error.response.status === 409) {
+                // Handle Conflict error
+                setErrorMessage("Appointment time overlaps or you have reached appointment limit.");
+              }
           }
       };
 
@@ -156,6 +162,12 @@ const Appointments = () => {
                     <p>No appointments to display</p>
                 )}
             </div>
+            {/* Error Modal */}
+            <ErrorModal
+                show={errorMessage !== ""}
+                onClose={() => setErrorMessage("")}
+                message={errorMessage}
+            />
         </article>
     );
 };

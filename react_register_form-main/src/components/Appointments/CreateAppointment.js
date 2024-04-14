@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useParams } from "react-router-dom";
 import NavBar from "../Main/NavBar";
+import SuccessModal from "../Modals/SuccessModal";
+import ErrorModal from "../Modals/ErrorModal";
 
 const CreateAppointment = () => {
-
   const { therapyId } = useParams();
 
   const [formData, setFormData] = useState({
@@ -15,8 +16,8 @@ const CreateAppointment = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,27 +49,42 @@ const CreateAppointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const datetime = `${formData.date} ${formData.time}:00`; // Add ":00" for seconds
+      // Combine date and time into a single datetime string
+      const datetime = `${formData.date}T${formData.time}:00`;
+  
+      // Convert the combined datetime string to ISO format
       const combinedDateTime = new Date(datetime).toISOString();
-      console.log(datetime);
-
+      
+      // Prepare the payload with the datetime and price
       const payload = {
-        time: datetime,
+        time: combinedDateTime,
         price: formData.price,
       };
-
+      console.log(payload);
+      // Send a POST request with the payload to create the appointment
       const response = await axiosPrivate.post(`therapies/${therapyId}/appointments`, payload);
-
+  
+      // If the request is successful, set the success message and reset the form data
       setSuccessMessage("Appointment created successfully!");
       setFormData({ date: "", time: "", price: 0 });
     } catch (error) {
-        if (error.response && error.response.status === 400) {
-        // Handle specific error case (BadRequest)
-            console.error('Bad request: ', error.response.data);
+      // Handle errors appropriately
+      if (error.response) {
+        if (error.response.status === 400) {
+          // Handle specific error case (BadRequest)
+          console.error('Bad request: ', error.response.data);
+          setErrorMessage("Failed to create appointment. Please try again.");
+        } else if (error.response.status === 409) {
+          // Handle Conflict error
+          setErrorMessage("Appointment at this time already exists.");
         } else {
-            console.error(`Error removing therapy ${therapyId}:`, error);
+          console.error(`Error creating appointment for therapy ${therapyId}:`, error);
+          setErrorMessage("Failed to create appointment. Please try again.");
         }
-        console.error("Error creating appointment:", error);
+      } else {
+        console.error('An unexpected error occurred:', error);
+        setErrorMessage("Failed to create appointment. Please try again.");
+      }
     }
   };
 
@@ -77,7 +93,6 @@ const CreateAppointment = () => {
       <NavBar />
       <div className="form-container">
         <h2>Create New Appointment</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="date">Date:</label><br />
@@ -90,7 +105,6 @@ const CreateAppointment = () => {
               required
               className="input-field"
             />
-            {errors.date && <span className="error-message">{errors.date}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="time">Time:</label><br />
@@ -104,7 +118,6 @@ const CreateAppointment = () => {
               className="input-field"
               step="60" // Set step to 60 (one minute)
             />
-            {errors.time && <span className="error-message">{errors.time}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="price">Price:</label><br />
@@ -117,15 +130,26 @@ const CreateAppointment = () => {
               required
               className="input-field"
             />
-            {errors.price && (
-              <span className="error-message">{errors.price}</span>
-            )}
           </div>
           <button type="submit" className="submit-button">
             Create
           </button>
         </form>
       </div>
+      {/* Success Modal */}
+      <SuccessModal
+        show={successMessage !== ""}
+        onClose={() => setSuccessMessage("")}
+        message={successMessage}
+        buttonText="Go to Appointment List"
+        destination={`/therapies/${therapyId}/appointments`}
+      />
+      {/* Error Modal */}
+      <ErrorModal
+        show={errorMessage !== ""}
+        onClose={() => setErrorMessage("")}
+        message={errorMessage}
+      />
     </section>
   );
 };

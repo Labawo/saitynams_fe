@@ -6,7 +6,7 @@ const SuccessModal = ({ show, onClose, message, buttonText, destination }) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate(destination);
+    navigate(-1);
     onClose(); // Close the modal after navigation
   };
 

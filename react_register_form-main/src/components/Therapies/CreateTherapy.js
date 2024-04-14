@@ -24,22 +24,21 @@ const CreateTherapy = () => {
 
   useEffect(() => {
     if (canAccessAdmin) {
-      const fetchDoctors = async () => {
-        try {
-          const response = await axiosPrivate.get("/doctors");
-          setDoctors(response.data);
-        } catch (error) {
-          console.error("Error fetching doctors:", error);
-        }
-      };
-
       fetchDoctors();
     }
-  }, [axiosPrivate, canAccessAdmin]);
+  }, [canAccessAdmin]);
+
+  const fetchDoctors = async () => {
+    try {
+      const response = await axiosPrivate.get("/doctors");
+      setDoctors(response.data);
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
-    // Validate input to prevent HTML or script injections
     const sanitizedValue = sanitizeInput(value);
     setFormData({
       ...formData,
@@ -48,50 +47,39 @@ const CreateTherapy = () => {
   };
 
   const sanitizeInput = (value) => {
-    // Basic sanitation function to prevent HTML/script injections
-    // Implement according to your security requirements
     return value.replace(/(<([^>]+)>)/gi, "");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Implement form validation logic here
-      // For instance, check if fields are not empty, etc.
-  
-      // Initialize imageData as null
-      let imageData1 = null;
-  
-      // Check if formData.image is not null
+      let imageData = null;
       if (formData.image) {
-        // Convert the image file to a base64 string asynchronously
-        imageData1 = await readFileAsBase64(formData.image);
+        imageData = await readFileAsBase64(formData.image);
       }
-  
-      // Include the base64 string in the JSON payload
+
       const therapyData = {
         name: formData.name,
         description: formData.description,
         doctorId: formData.doctorId,
-        imageData: imageData1, // Base64 string of the image or null if no image is selected
+        imageData: imageData,
       };
-  
-      // Send therapyData as JSON payload
+
       const response = await axiosPrivate.post("/therapies", therapyData);
-  
-      // Handle successful API response
+
       setSuccessMessage("Therapy created successfully!");
-      // Clear form fields
-      setFormData({ name: "", description: "", doctorId: "", image: null });
-      document.getElementById("image").value = "";
+      clearForm();
     } catch (error) {
-      // Handle API call errors
       console.error("Error creating therapy:", error);
-      // Update state to display error messages or handle errors appropriately
       setErrorMessage("Failed to create therapy. Please try again.");
     }
-  };  
-  
+  };
+
+  const clearForm = () => {
+    setFormData({ name: "", description: "", doctorId: "", image: null });
+    document.getElementById("image").value = "";
+  };
+
   const readFileAsBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -103,8 +91,7 @@ const CreateTherapy = () => {
         reject(error);
       };
     });
-  };  
-  
+  };
 
   return (
     <section>
@@ -141,7 +128,7 @@ const CreateTherapy = () => {
               <span className="error-message">{errors.description}</span>
             )}
           </div>
-          {canAccessAdmin && ( // Show the dropdown only if the user is an admin
+          {canAccessAdmin && (
             <div className="form-group">
               <label htmlFor="doctorId">Doctor:</label><br />
               <select
