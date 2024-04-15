@@ -14,6 +14,9 @@ const Appointments = () => {
     const { auth } = useAuth();
     const { therapyId } = useParams();
     const [errorMessage, setErrorMessage] = useState("");
+    const [startDate, setStartDate] = useState("");
+
+    const endDate = startDate ? new Date(new Date(startDate).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : "";
 
     const handleInspect = (appintmentId) => {
         // Navigate to the InspectPage with the therapyId parameter
@@ -67,47 +70,64 @@ const Appointments = () => {
 
     const deleteAppointment = async (appointmentId) => {
         try {
-          await axiosPrivate.delete(`/therapies/${therapyId}/appointments/${appointmentId}`);
-          // Remove the deleted appointment from the state
-          setAppointments(prevAppointments =>
+            await axiosPrivate.delete(`/therapies/${therapyId}/appointments/${appointmentId}`);
+            // Remove the deleted appointment from the state
+            setAppointments(prevAppointments =>
             prevAppointments.filter(appointment => appointment.id !== appointmentId)
-          );
+            );
         } catch (error) {
-          console.error(`Error deleting appointment ${appointmentId}:`, error);
-          // Handle deletion error (e.g., show error message)
+            console.error(`Error deleting appointment ${appointmentId}:`, error);
+            // Handle deletion error (e.g., show error message)
         }
-      };
+    };
 
-      const doctorId = therapy ? therapy.doctorId : null;
-      const userId = auth.id;
-      const canEditDelete = userId === doctorId || auth.roles.includes("Admin");
+    const doctorId = therapy ? therapy.doctorId : null;
+    const userId = auth.id;
+    const canEditDelete = userId === doctorId || auth.roles.includes("Admin");
 
-      const selectAppointment = async (appointmentId) => {
-          try {
-              await axiosPrivate.put(`/therapies/${therapyId}/appointments/${appointmentId}/select`);
-              // Logic for handling after selection if needed
-              const updatedAppointmentsResponse = await axiosPrivate.get(`/therapies/${therapyId}/appointments`);
-              setAppointments(updatedAppointmentsResponse.data);
-          } catch (error) {
-              console.error(`Error selecting appointment ${appointmentId}:`, error);
-              // Handle selection error (e.g., show error message)
-              if (error.response.status === 409) {
-                // Handle Conflict error
-                setErrorMessage("Appointment time overlaps or you have reached appointment limit.");
-              }
-          }
-      };
+    const selectAppointment = async (appointmentId) => {
+        try {
+            await axiosPrivate.put(`/therapies/${therapyId}/appointments/${appointmentId}/select`);
+            // Logic for handling after selection if needed
+            const updatedAppointmentsResponse = await axiosPrivate.get(`/therapies/${therapyId}/appointments`);
+            setAppointments(updatedAppointmentsResponse.data);
+        } catch (error) {
+            console.error(`Error selecting appointment ${appointmentId}:`, error);
+            // Handle selection error (e.g., show error message)
+            if (error.response.status === 409) {
+            // Handle Conflict error
+            setErrorMessage("Appointment time overlaps or you have reached appointment limit.");
+            }
+        }
+    };
 
-      const canSelectAppointment = auth.roles.includes("Patient");
+    const canSelectAppointment = auth.roles.includes("Patient");
+
+    const filteredAppointments = appointments.filter(appointment => {
+        if (startDate) {
+            const appointmentDate = new Date(appointment.time.split('T')[0]);
+            return appointmentDate >= new Date(startDate) && appointmentDate <= new Date(endDate);
+        }
+        return true;
+    });
 
     return (
         <article>
             <div className="table-container">
                 <h2 className="list-headers">Appointments List</h2>
+                <div className="filter-container">
+                    <label htmlFor="startDate">Start Date:</label>
+                    <input 
+                        type="date" 
+                        id="startDate" 
+                        value={startDate} 
+                        onChange={(e) => setStartDate(e.target.value)} 
+                    />
+                </div>
                 {canEditDelete && (
                     <button onClick={createAppointment} className="create-button-v1"> Create Appointment </button>
                 )}
-                {appointments.length ? (
+                {filteredAppointments.length ? (
                     <table className="my-table">
                         <thead>
                             <tr>
@@ -117,7 +137,7 @@ const Appointments = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {appointments.map((appointment, i) => (
+                            {filteredAppointments.map((appointment, i) => (
                                 <tr key={i}>
                                     <td>{appointment?.time.split('T')[0]}</td>
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>

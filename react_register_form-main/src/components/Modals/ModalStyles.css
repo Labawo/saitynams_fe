@@ -72,6 +72,14 @@
     background-color: #6c757d;
 }
 
+.error-header {
+    color:red;
+}
+
+.success-header {
+    color:green;
+}
+
 /* Responsive button */
 @media only screen and (max-width: 600px) {
     .modal-content {

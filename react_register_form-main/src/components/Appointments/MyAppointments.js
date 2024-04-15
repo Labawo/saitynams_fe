@@ -13,7 +13,9 @@ const AppointmentsPage = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
-    
+    const [startDate, setStartDate] = useState("");
+
+    const endDate = startDate ? new Date(new Date(startDate).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : "";
 
     useEffect(() => {
         let isMounted = true;
@@ -57,16 +59,31 @@ const AppointmentsPage = () => {
         setRecommendations([]); // Clear recommendations when closing
     };
 
-
+    const filteredAppointments = appointments.filter(appointment => {
+        if (startDate) {
+            const appointmentDate = new Date(appointment.time.split('T')[0]);
+            return appointmentDate >= new Date(startDate) && appointmentDate <= new Date(endDate);
+        }
+        return true;
+    });
 
     return (
         <section>
             <NavBar />
             <div className="table-container">
                 <h2>My Appointments List</h2>
+                <div className="filter-container">
+                    <label htmlFor="startDate">Start Date:</label>
+                    <input 
+                        type="date" 
+                        id="startDate" 
+                        value={startDate} 
+                        onChange={(e) => setStartDate(e.target.value)} 
+                    />
+                </div>
                 <br />
                 <br />
-                {appointments.length ? (
+                {filteredAppointments.length ? (
                     <table className="my-table">
                         <thead>
                             <tr>
@@ -77,7 +94,7 @@ const AppointmentsPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {appointments.map((appointment, i) => (
+                            {filteredAppointments.map((appointment, i) => (
                                 <tr key={i}>
                                     <td>{appointment?.time.split('T')[0]}</td>
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>

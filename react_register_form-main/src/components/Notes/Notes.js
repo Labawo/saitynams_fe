@@ -85,7 +85,7 @@ const Notes = () => {
                             {notes.map((note, i) => (
                                 <tr key={i}>
                                     <td>{note?.name}</td>
-                                    <td>{note?.content}</td>
+                                    <td>{note?.content.length > 20 ? note?.content[20] : note?.content}...</td>
                                     <td>
                                         <button
                                             className="table-buttons-blue"

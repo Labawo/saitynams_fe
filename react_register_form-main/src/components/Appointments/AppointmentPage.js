@@ -38,12 +38,14 @@ const AppointmentPage = () => {
             <h2>Appointment Details</h2>
             {appointment ? (
                 <div>
-                    <p>Name: {appointment.time}</p>
-                    <p>Description: {appointment.price}</p>
+                    <p>Date: {appointment.time.split('T')[0]}</p>
+                    <p>Time: {appointment.time.split('T')[1]}</p>
+                    <p>Price: {appointment.price} €</p>
+                    <p>Responsible doctor: {appointment.doctroName}</p>
                     {/* Add other details you want to display */}
                     {canAccessDoctor && (
                         <Link to={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}>
-                            <button>See Recommendations</button>
+                            <button className="related-button">See Recommendations</button>
                         </Link>
                     )}
                     

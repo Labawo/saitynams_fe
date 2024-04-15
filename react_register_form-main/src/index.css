@@ -277,11 +277,15 @@ li {
     text-align: left;
 }
 
-.create-button-v1, .table-buttons-blue  {
+.create-button-v1, .table-buttons-blue, .related-button  {
     background-color: #3066be;
     border: none;
     cursor: pointer;
     color: white;
+}
+
+.related-button {
+    margin-left: 40%;
 }
 
 .table-buttons-red  {
@@ -329,11 +333,12 @@ li {
         max-width: 100%;
     }
 
-    .load-button-v1 {
+    .load-button-v1, .related-button {
         margin-left: 0;
     }
 
     .no-list-items-p {
         margin-top: 40%;
     }
+
 }

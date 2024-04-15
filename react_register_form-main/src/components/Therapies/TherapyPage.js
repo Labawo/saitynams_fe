@@ -31,14 +31,13 @@ const TherapyPage = () => {
             <NavBar />
             {therapy ? (
                 <div className="therapy-details">
-                    <h2>{therapy.name}</h2>
-                    <p>{therapy.description}</p>
-                    {/* Display the image if available */}
                     {therapy.imageData && (
                         <img src={therapy.imageData} alt="Therapy" className="therapy-image" />
                     )}
+                    <h2>{therapy.name}</h2>
+                    <p>Description: {therapy.description}</p>                    
                     <Link to={`/therapies/${therapyId}/appointments`}>
-                        <button className="appointments-button">See Appointments</button>
+                        <button className="related-button">See Appointments</button>
                     </Link>
                 </div>
             ) : (

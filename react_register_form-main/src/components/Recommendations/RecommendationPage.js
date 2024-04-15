@@ -33,9 +33,7 @@ const RecommendationPage = () => {
             <h2>Recommendation Details</h2>
             {recommendation ? (
                 <div>
-                    <p>Name: {recommendation.id}</p>
-                    <p>Description: {recommendation.description}</p>
-                    {/* Add other details you want to display */}                    
+                    <p>Description: {recommendation.description}</p>                 
                 </div>
             ) : (
                 <p>Loading therapy details...</p>

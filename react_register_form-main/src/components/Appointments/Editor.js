@@ -78,6 +78,7 @@ const Editor = () => {
                             <tr>
                                 <th>Date</th>
                                 <th>Time</th>
+                                <th>Patient</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -86,6 +87,7 @@ const Editor = () => {
                                 <tr key={i}>
                                     <td>{appointment?.time.split('T')[0]}</td>
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
+                                    <td>{appointment?.patientId}</td>
                                     <td>
                                         <button className="table-buttons-red" onClick={() => handleDeleteAppointment(appointment.id)}>
                                             <FontAwesomeIcon icon={faTrash} />

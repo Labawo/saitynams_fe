@@ -94,14 +94,14 @@ const Therapies = () => {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Doctor</th>
+                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             {therapies.map((therapy, i) => (
                                 <tr key={i}>
                                     <td>{therapy?.name}</td>
-                                    <td>{therapy?.do}</td>
+                                    <td>{therapy?.description.length > 20 ? therapy?.description[20] : therapy?.description}...</td>
                                     <td>
                                         <button 
                                             className="table-buttons-blue"
