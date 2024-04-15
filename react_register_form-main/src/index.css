@@ -277,37 +277,62 @@ li {
     text-align: left;
 }
 
-.create-button-v1, .table-buttons-blue, .related-button  {
+.create-button-v1,
+.table-buttons-blue,
+.related-button {
     background-color: #3066be;
     border: none;
     cursor: pointer;
     color: white;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
 }
 
 .related-button {
     margin-left: 40%;
 }
 
-.table-buttons-red  {
-    background-color: #F44336;
+.table-buttons-red {
+    background-color: #f44336;
     border: none;
     cursor: pointer;
     color: white;
     padding-left: 13px;
     padding-right: 13px;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
 }
 
-.table-buttons-green  {
+.table-buttons-green {
     background-color: #75975e;
     border: none;
     cursor: pointer;
     color: white;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
 }
 
-.table-buttons-gold  {
-    background-color: #FFD700;
+.table-buttons-gold {
+    background-color: #ffd700;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+}
+
+/* Hover styles */
+.create-button-v1:hover,
+.table-buttons-blue:hover,
+.related-button:hover {
+    background-color: #28559e; /* Darker shade of blue */
+}
+
+.table-buttons-red:hover {
+    background-color: #d32f2f; /* Darker shade of red */
+}
+
+.table-buttons-green:hover {
+    background-color: #5a784b; /* Darker shade of green */
+}
+
+.table-buttons-gold:hover {
+    background-color: #cca000; /* Darker shade of gold */
 }
 
 .create-button-v1  {
@@ -339,6 +364,10 @@ li {
 
     .no-list-items-p {
         margin-top: 40%;
+    }
+
+    html {
+        font-size: 18px;
     }
 
 }

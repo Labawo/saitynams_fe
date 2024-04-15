@@ -16,7 +16,7 @@ const NewTest = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const [answers, setAnswers] = useState(Array(questionsData.length).fill(null));
+  const [answers, setAnswers] = useState(Array(Math.ceil(questionsData.length / 3)).fill(null));
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
@@ -69,6 +69,7 @@ const NewTest = () => {
   
       if (!isAllAnswered) {
         setErrorMessage("Please answer all questions before submitting.");
+        console.log(answers);
         return;
       }
   
@@ -145,7 +146,7 @@ const NewTest = () => {
               </button>
             )}
           </div>
-          <button type="submit" className="submit-button-test" style={{ display: answers.every(answer => answer !== null) ? 'block' : 'none' }}>
+          <button type="submit" className="submit-button-test">
             Submit Test
           </button>
         </form>

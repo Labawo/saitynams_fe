@@ -39,21 +39,11 @@ const EditAppointment = () => {
         setFormData({ date, time, price });
         setIsLoading(false);
       } catch (error) {
-        if (error.response) {
-          if (error.response.status === 400) {
-            // Handle specific error case (BadRequest)
-            console.error('Bad request: ', error.response.data);
-            setErrorMessage("Failed to create appointment. Please try again.");
-          } else if (error.response.status === 409) {
-            // Handle Conflict error
-            setErrorMessage("Appointment at this time already exists."); // Set error message from server
-          } else {
-            console.error(`Error creating appointment for therapy ${therapyId}:`, error);
-            setErrorMessage("Failed to create appointment. Please try again.");
-          }
-        } else {
-          console.error('An unexpected error occurred:', error);
-          setErrorMessage("Failed to create appointment. Please try again.");
+        console.error("Error fetching appointment:", error);
+        if (error.response && error.response.status === 404) {
+          navigate(-1);
+        } else if (error.response && error.response.status === 403) {
+          navigate("/therapies"); // Redirect to unauthorized page
         }
       }
     };
@@ -82,8 +72,22 @@ const EditAppointment = () => {
       const response = await axiosPrivate.put(`/therapies/${therapyId}/appointments/${appointmentId}`, payload);
       setSuccessMessage("Appointment updated successfully!");
     } catch (error) {
-      console.error("Error updating appointment:", error);
-      setErrorMessage("Failed to update appointment. Please try again.");
+      if (error.response) {
+        if (error.response.status === 400) {
+          // Handle specific error case (BadRequest)
+          console.error('Bad request: ', error.response.data);
+          setErrorMessage("Failed to create appointment. Please try again.");
+        } else if (error.response.status === 409) {
+          // Handle Conflict error
+          setErrorMessage("Appointment at this time already exists.");
+        } else {
+          console.error(`Error creating appointment for therapy ${therapyId}:`, error);
+          setErrorMessage("Failed to create appointment. Please try again.");
+        }
+      } else {
+        console.error('An unexpected error occurred:', error);
+        setErrorMessage("Failed to create appointment. Please try again.");
+      }
     }
   };
 

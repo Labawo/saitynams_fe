@@ -5,6 +5,7 @@ import useAuth from "../../hooks/UseAuth";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSearch, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
 import ErrorModal from "../Modals/ErrorModal";
+import SuccessSelectModal from "../Modals/SuccessSelectModal";
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
@@ -14,6 +15,7 @@ const Appointments = () => {
     const { auth } = useAuth();
     const { therapyId } = useParams();
     const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const [startDate, setStartDate] = useState("");
 
     const endDate = startDate ? new Date(new Date(startDate).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : "";
@@ -91,12 +93,13 @@ const Appointments = () => {
             // Logic for handling after selection if needed
             const updatedAppointmentsResponse = await axiosPrivate.get(`/therapies/${therapyId}/appointments`);
             setAppointments(updatedAppointmentsResponse.data);
+            setSuccessMessage("Appointment selected successfully");
         } catch (error) {
             console.error(`Error selecting appointment ${appointmentId}:`, error);
             // Handle selection error (e.g., show error message)
             if (error.response.status === 409) {
             // Handle Conflict error
-            setErrorMessage("Appointment time overlaps or you have reached appointment limit.");
+                setErrorMessage("Appointment time overlaps or you have reached appointment limit.");
             }
         }
     };
@@ -187,6 +190,11 @@ const Appointments = () => {
                 show={errorMessage !== ""}
                 onClose={() => setErrorMessage("")}
                 message={errorMessage}
+            />
+            <SuccessSelectModal
+                show={successMessage !== ""}
+                onClose={() => setSuccessMessage("")}
+                message={successMessage}
             />
         </article>
     );
