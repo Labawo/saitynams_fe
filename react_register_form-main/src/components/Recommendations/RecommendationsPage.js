@@ -6,10 +6,13 @@ const RecommendationsPage = () => {
     const { therapyId, appointmentId } = useParams();
 
     return (
-        <section>
+        <>
             <NavBar />
-            <Recommendations therapyId = {therapyId} appointmentId = {appointmentId} />
-        </section>
+            <section>               
+                <Recommendations therapyId = {therapyId} appointmentId = {appointmentId} />
+            </section>
+        </>
+        
     )
 }
 

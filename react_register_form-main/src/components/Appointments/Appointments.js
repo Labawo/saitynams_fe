@@ -146,7 +146,7 @@ const Appointments = () => {
                                     <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
                                     <td>{appointment?.price}€</td>
                                     <td>
-                                        {canSelectAppointment && (
+                                        {canSelectAppointment && appointment.patientId === null && (
                                             <button 
                                                 className="table-buttons-green"
                                                 onClick={() => selectAppointment(appointment.id)}

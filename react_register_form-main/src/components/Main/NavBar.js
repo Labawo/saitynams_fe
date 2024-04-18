@@ -31,7 +31,8 @@ const NavBar = () => {
     const canAccessPatient = auth.roles.includes("Patient");
 
     return (
-        <nav className="navbar">
+        <div className="navbar">
+            
             <div className="logout-div">
                 <button onClick={logout} className="logout-btn">
                     <FontAwesomeIcon icon={faSignOutAlt} />
@@ -54,7 +55,7 @@ const NavBar = () => {
                     <Link to="/tests" className={canAccessPatient ? 'nav-link' : 'hidden'}>Tests</Link>
                 </div>
             )}           
-        </nav>
+        </div>
     );
 };
 

@@ -28,17 +28,20 @@ const NotePage = () => {
     }, [axiosPrivate, noteId]);
 
     return (
-        <section className="note-page">
+        <>
             <NavBar />
-            {note ? (
-                <div className="note-details">
-                    <h2>{note.name}</h2>
-                    <p>{note.content}</p>
-                </div>
-            ) : (
-                <p>Loading note details...</p>
-            )}
-        </section>
+            <section className="note-page">               
+                {note ? (
+                    <div className="note-details">
+                        <h2>{note.name}</h2>
+                        <p>{note.content}</p>
+                    </div>
+                ) : (
+                    <p>Loading note details...</p>
+                )}
+            </section>
+        </>
+        
     );
 };
 

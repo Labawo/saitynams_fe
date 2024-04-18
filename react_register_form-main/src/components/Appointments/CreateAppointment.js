@@ -89,68 +89,70 @@ const CreateAppointment = () => {
   };
 
   return (
-    <section>
+    <>
       <NavBar />
-      <div className="form-container">
-        <h2>Create New Appointment</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="date">Date:</label><br />
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="time">Time:</label><br />
-            <input
-              type="time"
-              id="time"
-              name="time"
-              value={formData.time}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-              step="60" // Set step to 60 (one minute)
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="price">Price:</label><br />
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-          </div>
-          <button type="submit" className="submit-button">
-            Create
-          </button>
-        </form>
-      </div>
-      {/* Success Modal */}
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Appointment List"
-        destination={`/therapies/${therapyId}/appointments`}
-      />
-      {/* Error Modal */}
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+      <section>       
+        <div className="form-container">
+          <h2>Create New Appointment</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="date">Date:</label><br />
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="time">Time:</label><br />
+              <input
+                type="time"
+                id="time"
+                name="time"
+                value={formData.time}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+                step="60" // Set step to 60 (one minute)
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="price">Price:</label><br />
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Create
+            </button>
+          </form>
+        </div>
+        {/* Success Modal */}
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Appointment List"
+          destination={`/therapies/${therapyId}/appointments`}
+        />
+        {/* Error Modal */}
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
   );
 };
 

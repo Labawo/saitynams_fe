@@ -33,27 +33,29 @@ const AppointmentPage = () => {
     }, [axiosPrivate, therapyId, appointmentId]);
 
     return (
-        <section>
+        <>
             <NavBar />
-            <h2>Appointment Details</h2>
-            {appointment ? (
-                <div>
-                    <p>Date: {appointment.time.split('T')[0]}</p>
-                    <p>Time: {appointment.time.split('T')[1].slice(0, -3)}</p>
-                    <p>Price: {appointment.price} €</p>
-                    <p>Responsible doctor: {appointment.doctroName}</p>
-                    {/* Add other details you want to display */}
-                    {canAccessDoctor && (
-                        <Link to={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}>
-                            <button className="related-button">See Recommendations</button>
-                        </Link>
-                    )}
-                    
-                </div>
-            ) : (
-                <p>Loading appointment details...</p>
-            )}
-        </section>
+            <section>               
+                <h2>Appointment Details</h2>
+                {appointment ? (
+                    <div>
+                        <p>Date: {appointment.time.split('T')[0]}</p>
+                        <p>Time: {appointment.time.split('T')[1].slice(0, -3)}</p>
+                        <p>Price: {appointment.price} €</p>
+                        <p>Responsible doctor: {appointment.doctroName}</p>
+                        {/* Add other details you want to display */}
+                        {canAccessDoctor && (
+                            <Link to={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}>
+                                <button className="related-button">See Recommendations</button>
+                            </Link>
+                        )}
+                        
+                    </div>
+                ) : (
+                    <p>Loading appointment details...</p>
+                )}
+            </section>
+        </>      
     );
 };
 

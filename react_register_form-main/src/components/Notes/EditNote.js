@@ -66,40 +66,42 @@ const EditNote = () => {
   };
 
   return (
-    <section>
+    <>
       <NavBar />
-      <div className="form-container">
-        <h2>Edit Note</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="content">Content:</label><br />
-            <textarea
-              id="content"
-              name="content"
-              value={formData.content}
-              onChange={handleInputChange}
-              required
-              className="textarea-field"
-            />
-          </div>
-          <button type="submit" className="submit-button">
-            Update
-          </button>
-        </form>
-      </div>
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Notes List"
-        destination="/notes"
-      />
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+      <section>        
+        <div className="form-container">
+          <h2>Edit Note</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="content">Content:</label><br />
+              <textarea
+                id="content"
+                name="content"
+                value={formData.content}
+                onChange={handleInputChange}
+                required
+                className="textarea-field"
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Update
+            </button>
+          </form>
+        </div>
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Notes List"
+          destination="/notes"
+        />
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
   );
 };
 

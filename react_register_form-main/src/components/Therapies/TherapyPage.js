@@ -27,23 +27,27 @@ const TherapyPage = () => {
     }, [axiosPrivate, therapyId]);
 
     return (
-        <section className="therapy-page">
+        <>
             <NavBar />
-            {therapy ? (
-                <div className="therapy-details">
-                    {therapy.imageData && (
-                        <img src={therapy.imageData} alt="Therapy" className="therapy-image" />
-                    )}
-                    <h2>{therapy.name}</h2>
-                    <p>Description: {therapy.description}</p>                    
-                    <Link to={`/therapies/${therapyId}/appointments`}>
-                        <button className="related-button">See Appointments</button>
-                    </Link>
-                </div>
-            ) : (
-                <p>Loading therapy details...</p>
-            )}
-        </section>
+            <section className="therapy-page">
+                
+                {therapy ? (
+                    <div className="therapy-details">
+                        {therapy.imageData && (
+                            <img src={therapy.imageData} alt="Therapy" className="therapy-image" />
+                        )}
+                        <h2>{therapy.name}</h2>
+                        <p>Description: {therapy.description}</p>                    
+                        <Link to={`/therapies/${therapyId}/appointments`}>
+                            <button className="related-button">See Appointments</button>
+                        </Link>
+                    </div>
+                ) : (
+                    <p>Loading therapy details...</p>
+                )}
+            </section>
+        </>
+        
     );
 };
 

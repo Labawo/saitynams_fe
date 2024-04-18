@@ -104,64 +104,67 @@ const EditTherapy = () => {
   }
 
   return (
-    <section>
+    <>
       <NavBar />
-      <div className="form-container">
-        <h2>Edit Therapy</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name:</label><br />
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description:</label><br />
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              required
-              className="textarea-field"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="image">Image:</label><br />
-            <input
-              type="file"
-              id="image"
-              name="image"
-              onChange={handleInputChange}
-              accept="image/*"
-              className="input-field"
-            />
-          </div>
-          <button type="submit" className="submit-button">
-            Update
-          </button>
-        </form>
-      </div>
-      {/* Error Modal */}
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Therapy List"
-        destination="/therapies"
-      />
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+      <section>     
+        <div className="form-container">
+          <h2>Edit Therapy</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label><br />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description:</label><br />
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                required
+                className="textarea-field"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="image">Image:</label><br />
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={handleInputChange}
+                accept="image/*"
+                className="input-field"
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Update
+            </button>
+          </form>
+        </div>
+        {/* Error Modal */}
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Therapy List"
+          destination="/therapies"
+        />
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
+    
   );
 };
 

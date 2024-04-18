@@ -96,68 +96,71 @@ const EditAppointment = () => {
   }
 
   return (
-    <section>
-      <NavBar />
-      <div className="form-container">
-        <h2>Edit Appointment</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="date">Date:</label><br />
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="time">Time:</label><br />
-            <input
-              type="time"
-              id="time"
-              name="time"
-              value={formData.time}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-              step="60"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="price">Price:</label><br />
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleInputChange}
-              required
-              className="input-field"
-            />
-          </div>
-          <button type="submit" className="submit-button">
-            Update
-          </button>
-        </form>
-      </div>
-      {/* Success Modal */}
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Appointment List"
-        destination={`/therapies/${therapyId}/appointments`}
-      />
-      {/* Error Modal */}
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+    <>
+     <NavBar />
+      <section>       
+        <div className="form-container">
+          <h2>Edit Appointment</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="date">Date:</label><br />
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="time">Time:</label><br />
+              <input
+                type="time"
+                id="time"
+                name="time"
+                value={formData.time}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+                step="60"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="price">Price:</label><br />
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                required
+                className="input-field"
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Update
+            </button>
+          </form>
+        </div>
+        {/* Success Modal */}
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Appointment List"
+          destination={`/therapies/${therapyId}/appointments`}
+        />
+        {/* Error Modal */}
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
+    
   );
 };
 

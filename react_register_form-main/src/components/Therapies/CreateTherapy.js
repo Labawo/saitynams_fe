@@ -94,90 +94,93 @@ const CreateTherapy = () => {
   };
 
   return (
-    <section>
+    <>
       <NavBar />
-      <div className="form-container">
-        <h2>Create New Therapy</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name:</label><br />
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Enter Therapy Name"
-              required
-              className="input-field"
-            />
-            {errors.name && <span className="error-message">{errors.name}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description:</label><br/>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              placeholder="Enter Therapy Description"
-              required
-              className="textarea-field"
-            />
-            {errors.description && (
-              <span className="error-message">{errors.description}</span>
-            )}
-          </div>
-          {canAccessAdmin && (
+      <section>
+        <div className="form-container">
+          <h2>Create New Therapy</h2>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="doctorId">Doctor:</label><br />
-              <select
-                id="doctorId"
-                name="doctorId"
-                value={formData.doctorId}
+              <label htmlFor="name">Name:</label><br />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
                 onChange={handleInputChange}
-                className="select-field"
+                placeholder="Enter Therapy Name"
                 required
-              >
-                <option value="">Select Doctor</option>
-                {doctors.map((doctor) => (
-                  <option key={doctor.id} value={doctor.id}>
-                    {doctor.userName}
-                  </option>
-                ))}
-              </select>
+                className="input-field"
+              />
+              {errors.name && <span className="error-message">{errors.name}</span>}
             </div>
-          )}
-          <div className="form-group">
-            <label htmlFor="image">Image:</label><br />
-            <input
-              type="file"
-              id="image"
-              name="image"
-              onChange={handleInputChange}
-              accept="image/*"
-              className="input-field"
-            />
-            {errors.image && <span className="error-message">{errors.image}</span>}
-          </div>
-          <button type="submit" className="submit-button">
-            Create
-          </button>
-        </form>
-      </div>
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Therapy List"
-        destination="/therapies"
-      />
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+            <div className="form-group">
+              <label htmlFor="description">Description:</label><br/>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Enter Therapy Description"
+                required
+                className="textarea-field"
+              />
+              {errors.description && (
+                <span className="error-message">{errors.description}</span>
+              )}
+            </div>
+            {canAccessAdmin && (
+              <div className="form-group">
+                <label htmlFor="doctorId">Doctor:</label><br />
+                <select
+                  id="doctorId"
+                  name="doctorId"
+                  value={formData.doctorId}
+                  onChange={handleInputChange}
+                  className="select-field"
+                  required
+                >
+                  <option value="">Select Doctor</option>
+                  {doctors.map((doctor) => (
+                    <option key={doctor.id} value={doctor.id}>
+                      {doctor.userName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            <div className="form-group">
+              <label htmlFor="image">Image:</label><br />
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={handleInputChange}
+                accept="image/*"
+                className="input-field"
+              />
+              {errors.image && <span className="error-message">{errors.image}</span>}
+            </div>
+            <button type="submit" className="submit-button">
+              Create
+            </button>
+          </form>
+        </div>
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Therapy List"
+          destination="/therapies"
+        />
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
+    
   );
 };
 

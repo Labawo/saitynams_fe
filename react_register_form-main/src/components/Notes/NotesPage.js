@@ -4,10 +4,12 @@ import NavBar from "../Main/NavBar";
 const NotesPage = () => {
 
     return (
-        <section>
+        <>
             <NavBar />
-            <Notes />
-        </section>
+            <section>                
+                <Notes />
+            </section>
+        </>        
     )
 }
 

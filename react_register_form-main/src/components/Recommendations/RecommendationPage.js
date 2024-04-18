@@ -28,17 +28,20 @@ const RecommendationPage = () => {
     }, [axiosPrivate, therapyId, appointmentId, recommendationId]);
 
     return (
-        <section>
+        <>
             <NavBar />
-            <h2>Recommendation Details</h2>
-            {recommendation ? (
-                <div>
-                    <p>Description: {recommendation.description}</p>                 
-                </div>
-            ) : (
-                <p>Loading therapy details...</p>
-            )}
-        </section>
+            <section>               
+                <h2>Recommendation Details</h2>
+                {recommendation ? (
+                    <div>
+                        <p>Description: {recommendation.description}</p>                 
+                    </div>
+                ) : (
+                    <p>Loading therapy details...</p>
+                )}
+            </section>
+        </>
+        
     );
 };
 

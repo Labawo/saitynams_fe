@@ -62,58 +62,61 @@ const CreateNote = () => {
   };  
 
   return (
-    <section>
+    <>
       <NavBar />
-      <div className="form-container">
-        <h2>Create New Note</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Title:</label><br />
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Enter Note Title"
-              required
-              className="input-field"
-            />
-            {errors.name && <span className="error-message">{errors.name}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="content">Content:</label><br />
-            <textarea
-              id="content"
-              name="content"
-              value={formData.content}
-              onChange={handleInputChange}
-              placeholder="Enter Note Content"
-              required
-              className="textarea-field"
-            />
-            {errors.content && (
-              <span className="error-message">{errors.content}</span>
-            )}
-          </div>
-          <button type="submit" className="submit-button">
-            Create
-          </button>
-        </form>
-      </div>
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Notes List"
-        destination="/notes"
-      />
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+      <section>
+        <div className="form-container">
+          <h2>Create New Note</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Title:</label><br />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Enter Note Title"
+                required
+                className="input-field"
+              />
+              {errors.name && <span className="error-message">{errors.name}</span>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="content">Content:</label><br />
+              <textarea
+                id="content"
+                name="content"
+                value={formData.content}
+                onChange={handleInputChange}
+                placeholder="Enter Note Content"
+                required
+                className="textarea-field"
+              />
+              {errors.content && (
+                <span className="error-message">{errors.content}</span>
+              )}
+            </div>
+            <button type="submit" className="submit-button">
+              Create
+            </button>
+          </form>
+        </div>
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Notes List"
+          destination="/notes"
+        />
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
+    
   );
 };
 

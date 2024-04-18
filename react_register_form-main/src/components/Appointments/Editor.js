@@ -59,49 +59,51 @@ const Editor = () => {
     });
 
     return (
-        <section>
+        <>
             <NavBar />
-            <div className="table-container">
-                <h2>My Appointments List</h2>
-                <div className="filter-container">
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input 
-                        type="date" 
-                        id="startDate" 
-                        value={startDate} 
-                        onChange={(e) => setStartDate(e.target.value)} 
-                    />
-                </div>
-                {filteredAppointments.length ? (
-                    <table className="my-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Patient</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredAppointments.map((appointment, i) => (
-                                <tr key={i}>
-                                    <td>{appointment?.time.split('T')[0]}</td>
-                                    <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
-                                    <td>{appointment?.patientId}</td>
-                                    <td>
-                                        <button className="table-buttons-red" onClick={() => handleDeleteAppointment(appointment.id)}>
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </button>
-                                    </td>
+            <section>               
+                <div className="table-container">
+                    <h2>My Appointments List</h2>
+                    <div className="filter-container">
+                        <label htmlFor="startDate">Start Date:</label>
+                        <input 
+                            type="date" 
+                            id="startDate" 
+                            value={startDate} 
+                            onChange={(e) => setStartDate(e.target.value)} 
+                        />
+                    </div>
+                    {filteredAppointments.length ? (
+                        <table className="my-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Patient</th>
+                                    <th></th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>No appointments to display</p>
-                )}
-            </div>
-        </section>
+                            </thead>
+                            <tbody>
+                                {filteredAppointments.map((appointment, i) => (
+                                    <tr key={i}>
+                                        <td>{appointment?.time.split('T')[0]}</td>
+                                        <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
+                                        <td>{appointment?.patientId}</td>
+                                        <td>
+                                            <button className="table-buttons-red" onClick={() => handleDeleteAppointment(appointment.id)}>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>No appointments to display</p>
+                    )}
+                </div>
+            </section>
+        </>
     )
 }
 

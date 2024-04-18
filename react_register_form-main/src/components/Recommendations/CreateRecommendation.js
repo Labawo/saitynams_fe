@@ -54,43 +54,46 @@ const CreateRecommendation = () => {
   };
 
   return (
-    <section>
-      <NavBar />
-      <div className="form-container">
-        <h2>Create new recommendation</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="description">Description:</label><br />
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              placeholder="Enter Therapy Description"
-              required
-              className="textarea-field"
-            />
-          </div>
-          <button type="submit" className="submit-button">
-            Create
-          </button>
-        </form>
-      </div>
-      {/* Success Modal */}
-      <SuccessModal
-        show={successMessage !== ""}
-        onClose={() => setSuccessMessage("")}
-        message={successMessage}
-        buttonText="Go to Recommendations List"
-        destination={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}
-      />
-      {/* Error Modal */}
-      <ErrorModal
-        show={errorMessage !== ""}
-        onClose={() => setErrorMessage("")}
-        message={errorMessage}
-      />
-    </section>
+    <>
+     <NavBar />
+      <section>        
+        <div className="form-container">
+          <h2>Create new recommendation</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="description">Description:</label><br />
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Enter Therapy Description"
+                required
+                className="textarea-field"
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Create
+            </button>
+          </form>
+        </div>
+        {/* Success Modal */}
+        <SuccessModal
+          show={successMessage !== ""}
+          onClose={() => setSuccessMessage("")}
+          message={successMessage}
+          buttonText="Go to Recommendations List"
+          destination={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}
+        />
+        {/* Error Modal */}
+        <ErrorModal
+          show={errorMessage !== ""}
+          onClose={() => setErrorMessage("")}
+          message={errorMessage}
+        />
+      </section>
+    </>
+    
   );
 };
 

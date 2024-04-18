@@ -107,8 +107,8 @@ const RegisterDoctor = () => {
 
     return (
         <>
-            <section>
-                    <NavBar />
+            <NavBar />
+            <section>                  
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <p className={successMsg ? 'successmsg' : 'offscreen'} aria-live="assertive">
                         {successMsg}

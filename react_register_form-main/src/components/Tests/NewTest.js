@@ -105,60 +105,63 @@ const NewTest = () => {
   };
 
   return (
-    <section>
+    <>
       <NavBar />
-      <div className="form-container">
-        <h2>BDI Test</h2>
-        {errorMessage && <ErrorModal show={errorMessage !== ""} onClose={() => setErrorMessage("")} message={errorMessage} />}
-        <form onSubmit={handleSubmit} className="test-form">
-          {questionsData.slice(currentPage * 3, currentPage * 3 + 3).map((question, questionIndex) => (
-            <div className="form-group" key={questionIndex}>
-              <label className="test-label">{question.question}</label><br />
-              <div>
-                {question.options.map((option, optionIndex) => (
-                  <div key={optionIndex}>
-                    <label>
-                      <input
-                        type="radio"
-                        name={`question${questionIndex}`}
-                        value={optionIndex}
-                        checked={formData[questionIndex] === optionIndex}
-                        onChange={() => handleInputChange(questionIndex, optionIndex)}
-                        required
-                      />
-                      {option.text}
-                    </label>
-                    <br />
-                  </div>
-                ))}
+      <section>        
+        <div className="form-container">
+          <h2>BDI Test</h2>
+          {errorMessage && <ErrorModal show={errorMessage !== ""} onClose={() => setErrorMessage("")} message={errorMessage} />}
+          <form onSubmit={handleSubmit} className="test-form">
+            {questionsData.slice(currentPage * 3, currentPage * 3 + 3).map((question, questionIndex) => (
+              <div className="form-group" key={questionIndex}>
+                <label className="test-label">{question.question}</label><br />
+                <div>
+                  {question.options.map((option, optionIndex) => (
+                    <div key={optionIndex}>
+                      <label>
+                        <input
+                          type="radio"
+                          name={`question${questionIndex}`}
+                          value={optionIndex}
+                          checked={formData[questionIndex] === optionIndex}
+                          onChange={() => handleInputChange(questionIndex, optionIndex)}
+                          required
+                        />
+                        {option.text}
+                      </label>
+                      <br />
+                    </div>
+                  ))}
+                </div>
               </div>
+            ))}
+            <div className="pagination-buttons">
+              {currentPage > 0 && (
+                <button type="button" className="previous-button" onClick={handlePrevPage}>
+                  <FontAwesomeIcon icon={faAngleLeft} />
+                </button>
+              )}
+              {currentPage < Math.ceil(questionsData.length / 3) - 1 && (
+                <button type="button" className="next-button" onClick={handleNextPage}>
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </button>
+              )}
             </div>
-          ))}
-          <div className="pagination-buttons">
-            {currentPage > 0 && (
-              <button type="button" className="previous-button" onClick={handlePrevPage}>
-                <FontAwesomeIcon icon={faAngleLeft} />
-              </button>
-            )}
-            {currentPage < Math.ceil(questionsData.length / 3) - 1 && (
-              <button type="button" className="next-button" onClick={handleNextPage}>
-                <FontAwesomeIcon icon={faAngleRight} />
-              </button>
-            )}
-          </div>
-          <button type="submit" className="submit-button-test">
-            Submit Test
-          </button>
-        </form>
-        <RedirectModal 
-          show={successMessage !== ""} 
-          onClose={() => setSuccessMessage("")} 
-          message={successMessage} 
-          buttonText="Go to tests"
-          score={score}
-          destination="/tests" />
-      </div>
-    </section>
+            <button type="submit" className="submit-button-test">
+              Submit Test
+            </button>
+          </form>
+          <RedirectModal 
+            show={successMessage !== ""} 
+            onClose={() => setSuccessMessage("")} 
+            message={successMessage} 
+            buttonText="Go to tests"
+            score={score}
+            destination="/tests" />
+        </div>
+      </section>
+    </>
+    
   );
 };
 

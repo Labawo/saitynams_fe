@@ -68,96 +68,95 @@ const AppointmentsPage = () => {
     });
 
     return (
-        <section>
+        <>
             <NavBar />
-            <div className="table-container">
-                <h2>My Appointments List</h2>
-                <div className="filter-container">
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input 
-                        type="date" 
-                        id="startDate" 
-                        value={startDate} 
-                        onChange={(e) => setStartDate(e.target.value)} 
-                    />
-                </div>
-                <br />
-                <br />
-                {filteredAppointments.length ? (
-                    <table className="my-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Price</th>
-                                <th>Doctor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredAppointments.map((appointment, i) => (
-                                <tr key={i}>
-                                    <td>{appointment?.time.split('T')[0]}</td>
-                                    <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
-                                    <td>{appointment?.price}€</td>
-                                    <td>{appointment?.doctorName}</td>
-                                    <td>
-                                        <button 
-                                            className="table-buttons-blue"
-                                            onClick={() => handleInspect(appointment.id)}
-                                        >
-                                            <FontAwesomeIcon icon={faSearch} />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>No appointments to display</p>
-                )}
-
-                {/* Popup for recommendations */}
-                {showPopup && (
-                    <div className={`popup ${showPopup ? 'active' : ''}`} onClick={closePopup}>
-                        <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                            <span className="close" onClick={closePopup}>&times;</span>
-                            <h3>Recommendations</h3>
-                            <table className="recommendations-table">
-                                <thead>
-                                {recommendations.length === 0 ? (
-                                        null
-                                    ) : (<tr>
-                                        <th>Description</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                    </tr>
-                                )}
-                                </thead>
-                                    
-                                <tbody>
-                                    {recommendations.length === 0 ? (
-                                        <tr>
-                                            <td colSpan="2">No recommendations available</td>
-                                        </tr>
-                                    ) : (
-                                        recommendations.map((recommendation, index) => (
-                                            <tr key={index}>
-                                                <td>{recommendation.description}</td>
-                                                <td>{recommendation?.time.split('T')[0]}</td>
-                                                <td>{recommendation?.time.split('T')[1].slice(0, 5)}</td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
+            <section>                
+                <div className="table-container">
+                    <h2>My Appointments List</h2>
+                    <div className="filter-container">
+                        <label htmlFor="startDate">Start Date:</label>
+                        <input 
+                            type="date" 
+                            id="startDate" 
+                            value={startDate} 
+                            onChange={(e) => setStartDate(e.target.value)} 
+                        />
                     </div>
-                )}
-            </div>
-            
-        </section>
+                    <br />
+                    <br />
+                    {filteredAppointments.length ? (
+                        <table className="my-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Price</th>
+                                    <th>Doctor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredAppointments.map((appointment, i) => (
+                                    <tr key={i}>
+                                        <td>{appointment?.time.split('T')[0]}</td>
+                                        <td>{appointment?.time.split('T')[1].slice(0, 5)}</td>
+                                        <td>{appointment?.price}€</td>
+                                        <td>{appointment?.doctorName}</td>
+                                        <td>
+                                            <button 
+                                                className="table-buttons-blue"
+                                                onClick={() => handleInspect(appointment.id)}
+                                            >
+                                                <FontAwesomeIcon icon={faSearch} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p>No appointments to display</p>
+                    )}
 
-        
+                    {/* Popup for recommendations */}
+                    {showPopup && (
+                        <div className={`popup ${showPopup ? 'active' : ''}`} onClick={closePopup}>
+                            <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                                <span className="close" onClick={closePopup}>&times;</span>
+                                <h3>Recommendations</h3>
+                                <table className="recommendations-table">
+                                    <thead>
+                                    {recommendations.length === 0 ? (
+                                            null
+                                        ) : (<tr>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    )}
+                                    </thead>
+                                        
+                                    <tbody>
+                                        {recommendations.length === 0 ? (
+                                            <tr>
+                                                <td colSpan="2">No recommendations available</td>
+                                            </tr>
+                                        ) : (
+                                            recommendations.map((recommendation, index) => (
+                                                <tr key={index}>
+                                                    <td>{recommendation.description}</td>
+                                                    <td>{recommendation?.time.split('T')[0]}</td>
+                                                    <td>{recommendation?.time.split('T')[1].slice(0, 5)}</td>
+                                                </tr>
+                                            ))
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
+                </div>                
+            </section>
+        </>        
     )
 }
 

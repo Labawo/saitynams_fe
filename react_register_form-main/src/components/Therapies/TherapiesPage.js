@@ -3,10 +3,13 @@ import NavBar from "../Main/NavBar";
 
 const TherapiesPage = () => {
     return (
-        <section>
+        <>
             <NavBar />
-            <Therapies />
-        </section>
+            <section>                
+                <Therapies />
+            </section>
+        </>
+        
     );
 }
 

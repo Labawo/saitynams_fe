@@ -46,17 +46,20 @@ const TestsPage = () => {
     };
 
     return (
-        <section>
+        <>
             <NavBar />
-            <div className="page-header">
-                {canAccess() && (
-                    <button onClick={createTest} className="create-button-v1"> {/* Button to create a test */}
-                        New Test
-                    </button>
-                )}
-            </div>
-            <Tests />
-        </section>
+            <section>                
+                <div className="page-header">
+                    {canAccess() && (
+                        <button onClick={createTest} className="create-button-v1"> {/* Button to create a test */}
+                            New Test
+                        </button>
+                    )}
+                </div>
+                <Tests />
+            </section>
+        </>
+        
     );
 };
 
