@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 
 const RecommendationPage = () => {
     const { therapyId, appointmentId, recommendationId } = useParams(); // Get the therapyId from the URL params
@@ -40,6 +41,7 @@ const RecommendationPage = () => {
                     <p>Loading therapy details...</p>
                 )}
             </section>
+            <Footer />
         </>
         
     );

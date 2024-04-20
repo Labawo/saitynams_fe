@@ -12,7 +12,7 @@ const Tests = () => {
     const [selectedPatientId, setSelectedPatientId] = useState(""); // State for selected patient
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
-    const isAdmin = auth.roles.includes("Admin");
+    const isAdmin = auth.roles.includes("Doctor") && !auth.roles.includes("Admin");
 
     const fetchTests = useCallback(async (pageNumber, patientId) => {
         try {

@@ -28,7 +28,8 @@ const NavBar = () => {
     const canAccessAdmin = auth.roles.includes("Admin");
     const canAccessDoctor = auth.roles.includes("Doctor") && !auth.roles.includes("Admin");
     const canAccessAdminDoctor = auth.roles.includes("Doctor") && auth.roles.includes("Admin");
-    const canAccessPatient = auth.roles.includes("Patient");
+    const canAccessPatient = auth.roles.includes("Patient") && !auth.roles.includes("Admin");
+    const canAccessPatientDoctor = (auth.roles.includes("Doctor") || auth.roles.includes("Patient")) && !auth.roles.includes("Admin");
 
     return (
         <div className="navbar">
@@ -52,7 +53,7 @@ const NavBar = () => {
                     <Link to="/registerDoctor" className={canAccessAdmin ? 'nav-link' : 'hidden'}>Register Doctor</Link>
                     <Link to="/myAppointments" className={canAccessPatient ? 'nav-link' : 'hidden'}>My Appointments</Link>
                     <Link to="/notes" className={canAccessPatient ? 'nav-link' : 'hidden'}>Notes</Link>
-                    <Link to="/tests" className={canAccessPatient ? 'nav-link' : 'hidden'}>Tests</Link>
+                    <Link to="/tests" className={canAccessPatientDoctor ? 'nav-link' : 'hidden'}>Tests</Link>
                 </div>
             )}           
         </div>

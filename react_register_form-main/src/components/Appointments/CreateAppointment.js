@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useParams } from "react-router-dom";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import SuccessModal from "../Modals/SuccessModal";
 import ErrorModal from "../Modals/ErrorModal";
 
@@ -152,6 +153,7 @@ const CreateAppointment = () => {
           message={errorMessage}
         />
       </section>
+      <Footer />
     </>
   );
 };

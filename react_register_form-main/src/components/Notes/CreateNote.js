@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import useAuth from "../../hooks/UseAuth";
 import SuccessModal from "../Modals/SuccessModal";
 import ErrorModal from "../Modals/ErrorModal";
@@ -115,6 +116,7 @@ const CreateNote = () => {
           message={errorMessage}
         />
       </section>
+      <Footer />
     </>
     
   );

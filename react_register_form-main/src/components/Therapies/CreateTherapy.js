@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import useAuth from "../../hooks/UseAuth";
 import SuccessModal from "../Modals/SuccessModal";
 import ErrorModal from "../Modals/ErrorModal";
@@ -179,6 +180,7 @@ const CreateTherapy = () => {
           message={errorMessage}
         />
       </section>
+      <Footer />
     </>
     
   );

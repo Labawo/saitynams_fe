@@ -1,5 +1,7 @@
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import useAuth from "../../hooks/UseAuth";
+import Notifications from "./Notifications";
 
 const Home = () => {
     const { auth } = useAuth();
@@ -8,10 +10,12 @@ const Home = () => {
         <>
             <NavBar />
             <section>                
-                <h1>Home</h1>
+                <h1>Human emotional state monitoring system</h1>
                 <br />
-                <p>Hello {auth.user}, we are glad you are here!</p>            
+                <p>Hello {auth.user}, we are glad you are here!</p>
+                <Notifications />            
             </section>
+            <Footer />
         </>
         
     )

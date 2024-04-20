@@ -1,4 +1,5 @@
 import Notes from './Notes';
+import Footer from "../Main/Footer";
 import NavBar from "../Main/NavBar";
 
 const NotesPage = () => {
@@ -9,6 +10,7 @@ const NotesPage = () => {
             <section>                
                 <Notes />
             </section>
+            <Footer />
         </>        
     )
 }

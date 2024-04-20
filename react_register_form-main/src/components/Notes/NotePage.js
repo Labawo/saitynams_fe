@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 //import "./NotePage.css"; // Import a CSS file for styling (create NotePage.css in the same directory)
 
 const NotePage = () => {
@@ -40,6 +41,7 @@ const NotePage = () => {
                     <p>Loading note details...</p>
                 )}
             </section>
+            <Footer />
         </>
         
     );

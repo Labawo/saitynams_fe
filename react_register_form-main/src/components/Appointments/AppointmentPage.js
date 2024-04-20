@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import useAuth from "../../hooks/UseAuth";
 
 const AppointmentPage = () => {
@@ -12,7 +13,7 @@ const AppointmentPage = () => {
 
     const { auth } = useAuth();
 
-    const canAccessDoctor = auth.roles.includes("Doctor") || auth.roles.includes("Admin");
+    const canAccessDoctor = auth.roles.includes("Doctor") || !auth.roles.includes("Admin");
 
     useEffect(() => {
         const fetchTherapy = async () => {
@@ -32,6 +33,8 @@ const AppointmentPage = () => {
         fetchTherapy();
     }, [axiosPrivate, therapyId, appointmentId]);
 
+    const isPastAppointment = appointment && new Date() > new Date(appointment.time);
+
     return (
         <>
             <NavBar />
@@ -44,7 +47,7 @@ const AppointmentPage = () => {
                         <p>Price: {appointment.price} €</p>
                         <p>Responsible doctor: {appointment.doctroName}</p>
                         {/* Add other details you want to display */}
-                        {canAccessDoctor && (
+                        {isPastAppointment && canAccessDoctor && (
                             <Link to={`/therapies/${therapyId}/appointments/${appointmentId}/recommendations`}>
                                 <button className="related-button">See Recommendations</button>
                             </Link>
@@ -55,6 +58,7 @@ const AppointmentPage = () => {
                     <p>Loading appointment details...</p>
                 )}
             </section>
+            <Footer />
         </>      
     );
 };

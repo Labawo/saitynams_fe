@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import useAuth from "../../hooks/UseAuth";
 import questionsData from "./questionsData";
 import RedirectModal from "../Modals/RedirectModal"; // Import the RedirectModal component
@@ -160,6 +161,7 @@ const NewTest = () => {
             destination="/tests" />
         </div>
       </section>
+      <Footer />
     </>
     
   );

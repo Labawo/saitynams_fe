@@ -136,11 +136,19 @@ li {
     align-items: flex-end;
 }
 
-.navbar {
+.navbar, .footer {
     position: relative;
     width: 100%; /* Ensure navbar spans the entire width of the section */
     background-color: #0fa4af;
     padding-top: 5px;
+}
+
+.footer {
+    font-size: 14px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    color: #BBBBBB;
 }
 
 .menu-icon {
@@ -355,6 +363,34 @@ li {
     display: block;
 }
 
+.notification-item {
+    background-color: white;
+    width: 25%;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.close-button {
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    float: right;
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-button:hover {
+    color: #d32f2f;
+    transition: background-color 0.3s;
+}
+
+.notification-header {
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 768px) { /* Adjust the max-width according to your preference */
     section {
         max-width: 100%;
@@ -370,6 +406,11 @@ li {
 
     html {
         font-size: 18px;
+    }
+
+    .notification-item{
+        width: 100%;
+        margin-left: 0;
     }
 
 }

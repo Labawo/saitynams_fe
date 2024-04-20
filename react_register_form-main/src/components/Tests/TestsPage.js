@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Tests from './Tests';
 import { useNavigate } from 'react-router-dom';
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import useAuth from "../../hooks/UseAuth";
 
@@ -24,7 +25,7 @@ const TestsPage = () => {
             ? Math.floor((currentDate - lastTestDateTime) / (1000 * 60 * 60 * 24))
             : null;
 
-        return !auth.roles.includes("Admin") && (differenceInDays === null || differenceInDays >= 7);
+        return !auth.roles.includes("Doctor") && (differenceInDays === null || differenceInDays >= 7);
     };
 
     useEffect(() => {
@@ -58,6 +59,7 @@ const TestsPage = () => {
                 </div>
                 <Tests />
             </section>
+            <Footer />
         </>
         
     );

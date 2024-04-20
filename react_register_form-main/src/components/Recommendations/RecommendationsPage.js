@@ -1,6 +1,7 @@
 import Recommendations from './Recommendations';
 import { useParams } from 'react-router-dom';
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 
 const RecommendationsPage = () => {
     const { therapyId, appointmentId } = useParams();
@@ -11,6 +12,7 @@ const RecommendationsPage = () => {
             <section>               
                 <Recommendations therapyId = {therapyId} appointmentId = {appointmentId} />
             </section>
+            <Footer />
         </>
         
     )

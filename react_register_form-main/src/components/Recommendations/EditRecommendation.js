@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import { useParams, useNavigate } from "react-router-dom";
 import SuccessModal from "../Modals/SuccessModal";
 import ErrorModal from "../Modals/ErrorModal";
@@ -107,6 +108,7 @@ const EditRecommendation = () => {
           message={errorMessage}
         />
       </section>
+      <Footer />
     </>    
   );
 };

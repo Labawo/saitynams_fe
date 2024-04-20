@@ -46,12 +46,11 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} doNotPassAdmin = {true}/>}>
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/notes/:noteId" element={<NotePage />} />
           <Route path="/notes/createNote" element={<CreateNotePage />} />
           <Route path="/notes/:noteId/editNote" element={<EditNotePage />} />
-          <Route path="/tests" element={<TestsPage />} />
           <Route path="/tests/newTest" element={<NewTestPage />} />
         </Route>
 
@@ -62,6 +61,7 @@ function App() {
           <Route path="/therapies/:therapyId" element={<TherapyPage />} />
           <Route path="/therapies/:therapyId/appointments" element={<AppointmentsPage />} />
           <Route path="/therapies/:therapyId/appointments/:appointmentId" element={<AppointmentPage />} />
+          <Route path="/tests" element={<TestsPage />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>

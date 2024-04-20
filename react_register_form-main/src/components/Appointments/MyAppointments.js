@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "../Main/NavBar";
+import Footer from "../Main/Footer";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -156,6 +157,7 @@ const AppointmentsPage = () => {
                     )}
                 </div>                
             </section>
+            <Footer />
         </>        
     )
 }
