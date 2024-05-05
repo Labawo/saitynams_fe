@@ -146,30 +146,32 @@ const Users = () => {
                                         >
                                             <FontAwesomeIcon icon={faKey} />
                                         </button>
-                                        {showResetPassword[user.id] && (
-                                            <div className="password-reset-container">
-                                                <input
-                                                    type="password"
-                                                    value={newPassword}
-                                                    onChange={handlePasswordChange}
-                                                    placeholder="New Password"
-                                                /> <br />
-                                                <input
-                                                    type="password"
-                                                    value={repeatPassword}
-                                                    onChange={handleRepeatPasswordChange}
-                                                    placeholder="Repeat Password"
-                                                /> <br />
-                                                <button
-                                                    className="table-buttons-blue"
-                                                    onClick={resetPassword}
-                                                >
-                                                    Submit
-                                                </button>
-                                                {passwordError && <p className="error-message">{passwordError}</p>}
-                                            </div>
-                                        )}
+                                        
                                     </td>
+                                    
+                                    {showResetPassword[user.id] && (
+                                        <div className="password-reset-container">
+                                            <input
+                                                type="password"
+                                                value={newPassword}
+                                                onChange={handlePasswordChange}
+                                                placeholder="New Password"
+                                            /> <br />
+                                            <input
+                                                type="password"
+                                                value={repeatPassword}
+                                                onChange={handleRepeatPasswordChange}
+                                                placeholder="Repeat Password"
+                                            /> <br />
+                                            <button
+                                                className="table-buttons-blue"
+                                                onClick={resetPassword}
+                                            >
+                                                Submit
+                                            </button>
+                                            {passwordError && <p className="error-message">{passwordError}</p>}
+                                        </div>
+                                    )}    
                                 </tr>
                             ))}
                         </tbody>

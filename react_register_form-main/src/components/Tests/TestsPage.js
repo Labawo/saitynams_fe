@@ -21,9 +21,13 @@ const TestsPage = () => {
             lastTestDateTime = new Date(tests[0].Time); // Assuming createdAt contains the creation date
         }
 
+        console.log(tests[0].time);
+
         const differenceInDays = lastTestDateTime
             ? Math.floor((currentDate - lastTestDateTime) / (1000 * 60 * 60 * 24))
             : null;
+
+        console.log(differenceInDays);
 
         return !auth.roles.includes("Doctor") && (differenceInDays === null || differenceInDays >= 7);
     };

@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAxiosPrivate from "../../hooks/UseAxiosPrivate";
 import NavBar from "../Main/NavBar";
 import Footer from "../Main/Footer";
+import SuccessSelectModal from "../Modals/SuccessSelectModal";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const NAME_REGEX = /^[A-Z][a-z]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REGISTER_URL = '/registerDoctor';
@@ -13,6 +15,8 @@ const REGISTER_URL = '/registerDoctor';
 const RegisterDoctor = () => {
     const userRef = useRef();
     const emailRef = useRef();
+    const nameRef = useRef();
+    const lastRef = useRef();
     const errRef = useRef();
 
     const axiosPrivate = useAxiosPrivate();
@@ -20,6 +24,14 @@ const RegisterDoctor = () => {
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
+
+    const [name, setName] = useState('');
+    const [validPersonName, setValidPersonName] = useState(false);
+    const [nameFocus, setNameFocus] = useState(false);
+
+    const [last, setLast] = useState('');
+    const [validLast, setValidLast] = useState(false);
+    const [lastFocus, setLastFocus] = useState(false);
 
     const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
@@ -46,6 +58,14 @@ const RegisterDoctor = () => {
     }, [user])
 
     useEffect(() => {
+        setValidPersonName(NAME_REGEX.test(name));
+    }, [name])
+
+    useEffect(() => {
+        setValidLast(NAME_REGEX.test(last));
+    }, [last])
+
+    useEffect(() => {
         const result = EMAIL_REGEX.test(email);
         setValidEmail(result);
     }, [email])
@@ -57,7 +77,7 @@ const RegisterDoctor = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd, email, matchPwd])
+    }, [user, name, last, pwd, email, matchPwd])
 
     const resetForm = () => {
         setSuccess(false);
@@ -71,13 +91,15 @@ const RegisterDoctor = () => {
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
         const v3 = EMAIL_REGEX.test(email);
-        if (!v1 || !v2 || !v3) {
+        const v4 = NAME_REGEX.test(name);
+        const v5 = NAME_REGEX.test(last);
+        if (!v1 || !v2 || !v3 || !v4 || !v5) {
             setErrMsg("Invalid Entry");
             return;
         }
         try {
             const response = await axiosPrivate.post(REGISTER_URL,
-                JSON.stringify({ UserName : user, Email : email, Password : pwd }),
+                JSON.stringify({ UserName : user, Email : email, Password : pwd, Name : name, LastName : last }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -93,6 +115,8 @@ const RegisterDoctor = () => {
             setPwd('');
             setEmail('');
             setMatchPwd('');
+            setName('');
+            setLast('');
             resetForm();
         } catch (err) {
             if (!err?.response) {
@@ -111,9 +135,6 @@ const RegisterDoctor = () => {
             <NavBar />
             <section>                  
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <p className={successMsg ? 'successmsg' : 'offscreen'} aria-live="assertive">
-                        {successMsg}
-                    </p>
                     <h1>Register</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
@@ -139,6 +160,56 @@ const RegisterDoctor = () => {
                             4 to 24 characters.<br />
                             Must begin with a letter.<br />
                             Letters, numbers, underscores, hyphens allowed.
+                        </p>
+
+                        <label htmlFor="name">
+                            Name:
+                            <FontAwesomeIcon icon={faCheck} className={validPersonName ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPersonName || !name ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            ref={nameRef}
+                            autoComplete="off"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            required
+                            aria-invalid={validPersonName ? "false" : "true"}
+                            aria-describedby="nidnote"
+                            onFocus={() => setNameFocus(true)}
+                            onBlur={() => setNameFocus(false)}
+                        />
+                        <p id="nidnote" className={nameFocus && name && !validPersonName ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            3 to 24 characters.<br />
+                            Must begin with an upper letter.<br />
+                            Only letters allowed.
+                        </p>
+
+                        <label htmlFor="last">
+                            Lastname:
+                            <FontAwesomeIcon icon={faCheck} className={validLast ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validLast || !last ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="last"
+                            ref={lastRef}
+                            autoComplete="off"
+                            onChange={(e) => setLast(e.target.value)}
+                            value={last}
+                            required
+                            aria-invalid={validLast ? "false" : "true"}
+                            aria-describedby="lidnote"
+                            onFocus={() => setLastFocus(true)}
+                            onBlur={() => setLastFocus(false)}
+                        />
+                        <p id="lidnote" className={lastFocus && last && !validLast ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            3 to 24 characters.<br />
+                            Must begin with an upper letter.<br />
+                            Only letters allowed.
                         </p>
 
                         <label htmlFor="email">
@@ -218,6 +289,11 @@ const RegisterDoctor = () => {
                         <button disabled={!validName || !validPwd ||!validEmail || !validMatch ? true : false}>Register doctor</button>
                     </form>
                 </section>
+                <SuccessSelectModal
+                    show={successMsg !== ""}
+                    onClose={() => setSuccessMsg("")}
+                    message={successMsg}
+                />
                 <Footer />
         </>
     )
